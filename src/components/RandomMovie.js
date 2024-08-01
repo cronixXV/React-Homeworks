@@ -10,6 +10,8 @@ const getRandomMovie = (movies) => {
 export default function RandomMovie() {
   const [movies, setMovies] = useState([])
   const [randomMovie, setRandomMovie] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const fetchMovies = async () => {
     try {
@@ -33,12 +35,22 @@ export default function RandomMovie() {
     fetchMovies()
   }, [])
 
+  const handleClick = () => {
+    if (movies.length > 0) {
+      setRandomMovie(getRandomMovie(movies))
+    }
+  }
+
   if (!randomMovie) {
     return (
       <div>
         <button onClick={fetchMovies}>Загрузить фильмы</button>
       </div>
     )
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
   }
 
   return (
