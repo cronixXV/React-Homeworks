@@ -1,14 +1,15 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const Dotenv = require("dotenv-webpack")
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production"
 const styleLoaderHandler = isProduction
   ? MiniCssExtractPlugin.loader
-  : "style-loader";
+  : "style-loader"
 
 module.exports = {
-  entry: path.resolve(__dirname, "src", "index.js"),
+  entry: path.resolve(__dirname, "src", "App.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name][contenthash].js",
@@ -28,11 +29,11 @@ module.exports = {
     historyApiFallback: true,
     onListening: function (devServer) {
       if (isProduction) {
-        throw new Error("webpack-dev-server is not allowed");
+        throw new Error("webpack-dev-server is not allowed")
       }
 
-      const port = devServer.server.address().port;
-      console.log(`Port: ${port}`);
+      const port = devServer.server.address().port
+      console.log(`Port: ${port}`)
     },
   },
   module: {
@@ -76,12 +77,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "template.html"),
-      favicon: path.resolve(__dirname, "src", "img", "note.svg"),
       filename: "index.html",
       title: "Homework",
     }),
     new MiniCssExtractPlugin({
       filename: "css/[name][contenthash].css",
     }),
+    new Dotenv({
+      path: "./.env.example",
+      safe: true,
+    }),
   ],
-};
+}

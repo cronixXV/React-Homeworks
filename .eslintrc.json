@@ -9,6 +9,9 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
+  "globals": {
+    "process": true
+  },
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
