@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
-const getRandomMovie = (movies) => {
-  const randomIndex = Math.floor(Math.random() * movies.length)
-  return movies[randomIndex]
-}
+// const getRandomMovie = (movies) => {
+//   const randomIndex = Math.floor(Math.random() * movies.length)
+//   return movies[randomIndex]
+// }
 
 export default function RandomMovie() {
   const [movies, setMovies] = useState([])
