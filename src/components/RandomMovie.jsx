@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react"
+import getRandomMovie from "../helpers/getRandomMovie"
+import MovieContainer from "./MovieContainer.jsx"
 
 const API_KEY = process.env.REACT_APP_API_KEY
-
-// const getRandomMovie = (movies) => {
-//   const randomIndex = Math.floor(Math.random() * movies.length)
-//   return movies[randomIndex]
-// }
 
 export default function RandomMovie() {
   const [movies, setMovies] = useState([])
   const [randomMovie, setRandomMovie] = useState(null)
   const [error, setError] = useState(null)
+  const [sortedMovies, setSortedMovies] = useState([])
 
   const fetchMovies = async () => {
     try {
@@ -23,7 +21,6 @@ export default function RandomMovie() {
       const data = await response.json()
       setMovies(data.results)
       setRandomMovie(getRandomMovie(data.results))
-      setLoading(false)
     } catch (error) {
       setError(error.message)
     }
@@ -32,6 +29,11 @@ export default function RandomMovie() {
   useEffect(() => {
     fetchMovies()
   }, [])
+
+  useEffect(() => {
+    const sorted = [...movies].sort((a, b) => b.voteCount - a.voteCount)
+    setSortedMovies(sorted)
+  }, [movies])
 
   const handleClick = () => {
     if (movies.length > 0) {
@@ -53,10 +55,11 @@ export default function RandomMovie() {
 
   return (
     <div>
-      <h1>{randomMovie.title}</h1>
+      {/* <h1>{randomMovie.title}</h1>
       <p>{randomMovie.overview}</p>
-      <p>Дата выхода: {randomMovie.releaseDate}</p>
-
+      <p>Дата выхода: {randomMovie.releaseDate}</p> */}
+      <h1>Популярные фильмы</h1>
+      <MovieContainer movies={sortedMovies} />
       <button onClick={handleClick}>Показать случайный фильм</button>
     </div>
   )
