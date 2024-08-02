@@ -2,11 +2,7 @@ import React from "react"
 import RandomMovie from "./components/RandomMovie"
 
 const App = () => {
-  return (
-    <div>
-      <RandomMovie />
-    </div>
-  )
+  return <RandomMovie />
 }
 
 export default App

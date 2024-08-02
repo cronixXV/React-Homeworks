@@ -10,7 +10,6 @@ const getRandomMovie = (movies) => {
 export default function RandomMovie() {
   const [movies, setMovies] = useState([])
   const [randomMovie, setRandomMovie] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const fetchMovies = async () => {
@@ -27,7 +26,6 @@ export default function RandomMovie() {
       setLoading(false)
     } catch (error) {
       setError(error.message)
-      setLoading(false)
     }
   }
 

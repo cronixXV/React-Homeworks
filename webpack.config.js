@@ -9,7 +9,7 @@ const styleLoaderHandler = isProduction
   : "style-loader"
 
 module.exports = {
-  entry: path.resolve(__dirname, "src", "App.js"),
+  entry: path.resolve(__dirname, "src", "index.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name][contenthash].js",
@@ -84,7 +84,7 @@ module.exports = {
       filename: "css/[name][contenthash].css",
     }),
     new Dotenv({
-      path: "./.env.example",
+      path: "./.env",
       safe: true,
     }),
   ],
