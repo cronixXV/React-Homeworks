@@ -4,10 +4,10 @@ export default function MovieItem({ movie }) {
   return (
     <div className="movie-item">
       <h2>{movie.title}</h2>
-      <p>Рейтинг: {movie.voteAverage}</p>
-      <p>Количество отзывов: {movie.voteCount}</p>
+      <p>Рейтинг: {movie.popularity}</p>
+      <p>Количество отзывов: {movie.vote_count}</p>
       <p>{movie.overview}</p>
-      <p>Дата выхода: {movie.releaseDate}</p>
+      <p>Дата выхода: {movie.release_date}</p>
     </div>
   )
 }

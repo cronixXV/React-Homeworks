@@ -8,7 +8,6 @@ export default function RandomMovie() {
   const [movies, setMovies] = useState([])
   const [randomMovie, setRandomMovie] = useState(null)
   const [error, setError] = useState(null)
-  const [sortedMovies, setSortedMovies] = useState([])
 
   const fetchMovies = async () => {
     try {
@@ -19,8 +18,11 @@ export default function RandomMovie() {
         throw new Error("Network response was not ok")
       }
       const data = await response.json()
-      setMovies(data.results)
-      setRandomMovie(getRandomMovie(data.results))
+      const sortedMovies = data.results.sort(
+        (a, b) => b.voteCount - a.voteCount
+      )
+      setMovies(sortedMovies)
+      setRandomMovie(getRandomMovie(sortedMovies))
     } catch (error) {
       setError(error.message)
     }
@@ -29,11 +31,6 @@ export default function RandomMovie() {
   useEffect(() => {
     fetchMovies()
   }, [])
-
-  useEffect(() => {
-    const sorted = [...movies].sort((a, b) => b.voteCount - a.voteCount)
-    setSortedMovies(sorted)
-  }, [movies])
 
   const handleClick = () => {
     if (movies.length > 0) {
@@ -57,9 +54,9 @@ export default function RandomMovie() {
     <div>
       {/* <h1>{randomMovie.title}</h1>
       <p>{randomMovie.overview}</p>
-      <p>Дата выхода: {randomMovie.releaseDate}</p> */}
+      <p>Дата выхода: {randomMovie.releaseDate}</p>  */}
       <h1>Популярные фильмы</h1>
-      <MovieContainer movies={sortedMovies} />
+      <MovieContainer movies={movies} />
       <button onClick={handleClick}>Показать случайный фильм</button>
     </div>
   )

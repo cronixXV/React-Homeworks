@@ -6,7 +6,7 @@ export default function MovieContainer({ movies }) {
     <div className="movie-container">
       {movies.map((movie, index) => (
         <MovieItem
-          key={index}
+          key={movie.id}
           movie={movie}
         />
       ))}
