@@ -75,7 +75,7 @@ export default function RandomMovie() {
     <div>
       <h1>{randomMovie.title}</h1>
       <p>{randomMovie.overview}</p>
-      <p>Дата выхода: {randomMovie.release_date}</p>
+      <p>Дата выхода: {randomMovie.releaseDate}</p>
       <h1>Популярные фильмы</h1>
       <MovieContainer movies={sortedMovies} />
       <Tabs
