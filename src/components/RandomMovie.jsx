@@ -19,7 +19,7 @@ export default function RandomMovie() {
       }
       const data = await response.json()
       const sortedMovies = data.results.sort(
-        (a, b) => b.voteCount - a.voteCount
+        (a, b) => b.vote_count - a.vote_count
       )
       setMovies(sortedMovies)
       setRandomMovie(getRandomMovie(sortedMovies))
