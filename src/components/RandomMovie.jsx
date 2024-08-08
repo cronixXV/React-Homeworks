@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react"
+import getRandomMovie from "../helpers/getRandomMovie"
+import MovieContainer from "./MovieContainer.jsx"
 
 const API_KEY = process.env.REACT_APP_API_KEY
-
-// const getRandomMovie = (movies) => {
-//   const randomIndex = Math.floor(Math.random() * movies.length)
-//   return movies[randomIndex]
-// }
 
 export default function RandomMovie() {
   const [movies, setMovies] = useState([])
@@ -21,9 +18,11 @@ export default function RandomMovie() {
         throw new Error("Network response was not ok")
       }
       const data = await response.json()
-      setMovies(data.results)
-      setRandomMovie(getRandomMovie(data.results))
-      setLoading(false)
+      const sortedMovies = data.results.sort(
+        (a, b) => b.vote_count - a.vote_count
+      )
+      setMovies(sortedMovies)
+      setRandomMovie(getRandomMovie(sortedMovies))
     } catch (error) {
       setError(error.message)
     }
@@ -53,10 +52,11 @@ export default function RandomMovie() {
 
   return (
     <div>
-      <h1>{randomMovie.title}</h1>
+      {/* <h1>{randomMovie.title}</h1>
       <p>{randomMovie.overview}</p>
-      <p>Дата выхода: {randomMovie.releaseDate}</p>
-
+      <p>Дата выхода: {randomMovie.releaseDate}</p>  */}
+      <h1>Популярные фильмы</h1>
+      <MovieContainer movies={movies} />
       <button onClick={handleClick}>Показать случайный фильм</button>
     </div>
   )
