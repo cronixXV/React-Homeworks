@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from "react"
 import Tabs from "./components/Tabs.jsx"
 import { LanguageProvider, useLanguage } from "./helpers/LanguageContext.jsx"
