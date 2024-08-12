@@ -1,13 +1,46 @@
 import React, { useState, useEffect } from "react"
 import getRandomMovie from "../helpers/getRandomMovie"
-import MovieContainer from "./MovieContainer.jsx"
+import styled from "styled-components"
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
+const RandomMovieContainer = styled.div`
+  margin: 20px;
+`
+
+const RandomMovieTitle = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+`
+
+const RandomMovieOverview = styled.p`
+  font-size: 16px;
+  margin-bottom: 10px;
+`
+
+const RandomMovieReleaseDate = styled.p`
+  font-size: 14px;
+  color: #666;
+`
+
+const RandomMovieButton = styled.button`
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #333;
+  }
+`
+
 export default function RandomMovie() {
-  const [movies, setMovies] = useState([])
   const [randomMovie, setRandomMovie] = useState(null)
   const [error, setError] = useState(null)
+  const [movies, setMovies] = useState([])
 
   const fetchMovies = async () => {
     try {
@@ -18,13 +51,18 @@ export default function RandomMovie() {
         throw new Error("Network response was not ok")
       }
       const data = await response.json()
-      const sortedMovies = data.results.sort(
-        (a, b) => b.vote_count - a.vote_count
-      )
-      setMovies(sortedMovies)
-      setRandomMovie(getRandomMovie(sortedMovies))
+      setMovies(data.results)
     } catch (error) {
       setError(error.message)
+    }
+  }
+
+  const fetchRandomMovie = () => {
+    if (movies.length > 0) {
+      const sortedMovies = [...movies].sort(
+        (a, b) => b.vote_count - a.vote_count
+      )
+      setRandomMovie(getRandomMovie(sortedMovies))
     }
   }
 
@@ -32,32 +70,28 @@ export default function RandomMovie() {
     fetchMovies()
   }, [])
 
-  const handleClick = () => {
-    if (movies.length > 0) {
-      setRandomMovie(getRandomMovie(movies))
-    }
+  useEffect(() => {
+    fetchRandomMovie()
+  }, [movies])
+
+  if (error) {
+    return <div>Ошибка: {error}</div>
   }
 
   if (!randomMovie) {
-    return (
-      <div>
-        <button onClick={fetchMovies}>Загрузить фильмы</button>
-      </div>
-    )
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>
+    return <div>Загрузка...</div>
   }
 
   return (
-    <div>
-      {/* <h1>{randomMovie.title}</h1>
-      <p>{randomMovie.overview}</p>
-      <p>Дата выхода: {randomMovie.releaseDate}</p>  */}
-      <h1>Популярные фильмы</h1>
-      <MovieContainer movies={movies} />
-      <button onClick={handleClick}>Показать случайный фильм</button>
-    </div>
+    <RandomMovieContainer>
+      <RandomMovieTitle>{randomMovie.title}</RandomMovieTitle>
+      <RandomMovieOverview>{randomMovie.overview}</RandomMovieOverview>
+      <RandomMovieReleaseDate>
+        Дата выхода: {randomMovie.release_date}
+      </RandomMovieReleaseDate>
+      <RandomMovieButton onClick={fetchRandomMovie}>
+        Показать другой случайный фильм
+      </RandomMovieButton>
+    </RandomMovieContainer>
   )
 }
