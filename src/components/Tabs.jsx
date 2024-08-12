@@ -27,7 +27,7 @@ const TabButton = styled.button`
   font-size: 16px;
   color: #333;
   border-bottom: ${(props) =>
-    props.active ? "2px solid #007bff" : "2px solid transparent"};
+    props["data-active"] ? "2px solid #007bff" : "2px solid transparent"};
 
   &:hover {
     border-bottom: 2px solid #007bff;
@@ -50,7 +50,7 @@ export default function Tabs() {
       <TabList>
         <TabItem>
           <TabButton
-            active={activeTab === "movies"}
+            data-active={activeTab === "movies"}
             onClick={() => handleTabClick("movies")}
           >
             Фильмы
@@ -58,7 +58,7 @@ export default function Tabs() {
         </TabItem>
         <TabItem>
           <TabButton
-            active={activeTab === "tvShows"}
+            data-active={activeTab === "tvShows"}
             onClick={() => handleTabClick("tvShows")}
           >
             Сериалы
@@ -66,7 +66,7 @@ export default function Tabs() {
         </TabItem>
         <TabItem>
           <TabButton
-            active={activeTab === "randomMovie"}
+            data-active={activeTab === "randomMovie"}
             onClick={() => handleTabClick("randomMovie")}
           >
             Случайный фильм

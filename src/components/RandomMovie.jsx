@@ -3,6 +3,7 @@ import getRandomMovie from "../helpers/getRandomMovie"
 import styled from "styled-components"
 
 const API_KEY = process.env.REACT_APP_API_KEY
+
 const RandomMovieContainer = styled.div`
   margin: 20px;
 `
