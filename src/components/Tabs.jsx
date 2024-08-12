@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Movies from "./Movies.jsx"
 import TVShows from "./TVShows.jsx"
 import RandomMovie from "./RandomMovie.jsx"
+import { useLanguage } from "../helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
 const TabsContainer = styled.div`
@@ -38,46 +39,75 @@ const TabContent = styled.div`
   margin-top: 20px;
 `
 
-export default function Tabs() {
+const LanguageButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+const TabsWrapper = styled.div`
+  position: relative;
+`
+export default function Tabs({ movies, tvShows }) {
   const [activeTab, setActiveTab] = useState("movies")
+  const { language, setLanguage } = useLanguage()
 
   const handleTabClick = (tab) => {
     setActiveTab(tab)
   }
 
+  const handleLanguageChange = () => {
+    setLanguage(language === "ru" ? "en-US" : "ru")
+  }
+
   return (
-    <TabsContainer>
-      <TabList>
-        <TabItem>
-          <TabButton
-            data-active={activeTab === "movies"}
-            onClick={() => handleTabClick("movies")}
-          >
-            Фильмы
-          </TabButton>
-        </TabItem>
-        <TabItem>
-          <TabButton
-            data-active={activeTab === "tvShows"}
-            onClick={() => handleTabClick("tvShows")}
-          >
-            Сериалы
-          </TabButton>
-        </TabItem>
-        <TabItem>
-          <TabButton
-            data-active={activeTab === "randomMovie"}
-            onClick={() => handleTabClick("randomMovie")}
-          >
-            Случайный фильм
-          </TabButton>
-        </TabItem>
-      </TabList>
-      <TabContent>
-        {activeTab === "movies" && <Movies />}
-        {activeTab === "tvShows" && <TVShows />}
-        {activeTab === "randomMovie" && <RandomMovie />}
-      </TabContent>
-    </TabsContainer>
+    <TabsWrapper>
+      <LanguageButton onClick={handleLanguageChange}>
+        {language === "ru" ? "Switch to English" : "Переключить на русский"}
+      </LanguageButton>
+      <TabsContainer>
+        <TabList>
+          <TabItem>
+            <TabButton
+              active={activeTab === "movies" ? "true" : "false"}
+              onClick={() => handleTabClick("movies")}
+            >
+              Фильмы
+            </TabButton>
+          </TabItem>
+          <TabItem>
+            <TabButton
+              active={activeTab === "tvShows" ? "true" : "false"}
+              onClick={() => handleTabClick("tvShows")}
+            >
+              Сериалы
+            </TabButton>
+          </TabItem>
+          <TabItem>
+            <TabButton
+              active={activeTab === "randomMovie" ? "true" : "false"}
+              onClick={() => handleTabClick("randomMovie")}
+            >
+              Случайный фильм
+            </TabButton>
+          </TabItem>
+        </TabList>
+        <TabContent>
+          {activeTab === "movies" && <Movies movies={movies} />}
+          {activeTab === "tvShows" && <TVShows tvShows={tvShows} />}
+          {activeTab === "randomMovie" && <RandomMovie movies={movies} />}
+        </TabContent>
+      </TabsContainer>
+    </TabsWrapper>
   )
 }
