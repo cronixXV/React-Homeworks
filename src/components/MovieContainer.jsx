@@ -1,15 +1,23 @@
 import React from "react"
 import MovieItem from "./MovieItem.jsx"
+import styled from "styled-components"
+
+const MovieContainerWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px;
+`
 
 export default function MovieContainer({ movies }) {
   return (
-    <div className="movie-container">
-      {movies.map((movie, index) => (
+    <MovieContainerWrapper>
+      {movies.map((movie) => (
         <MovieItem
           key={movie.id}
           movie={movie}
         />
       ))}
-    </div>
+    </MovieContainerWrapper>
   )
 }
