@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Movies from "./Movies.jsx"
 import TVShows from "./TVShows.jsx"
 import RandomMovie from "./RandomMovie.jsx"
+import BestMovies from "./BestMovies.jsx"
 import { useLanguage } from "../helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
@@ -101,11 +102,20 @@ export default function Tabs({ movies, tvShows }) {
               Случайный фильм
             </TabButton>
           </TabItem>
+          <TabItem>
+            <TabButton
+              active={activeTab === "bestMovies" ? "true" : "false"}
+              onClick={() => handleTabClick("bestMovies")}
+            >
+              Лучшие фильмы
+            </TabButton>
+          </TabItem>
         </TabList>
         <TabContent>
           {activeTab === "movies" && <Movies movies={movies} />}
           {activeTab === "tvShows" && <TVShows tvShows={tvShows} />}
           {activeTab === "randomMovie" && <RandomMovie movies={movies} />}
+          {activeTab === "bestMovies" && <BestMovies movies={movies} />}
         </TabContent>
       </TabsContainer>
     </TabsWrapper>
