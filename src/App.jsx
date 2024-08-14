@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Tabs from "./components/Tabs.jsx"
+import { RouterProvider } from "react-router-dom"
+import createRouter from "./components/Routers/Routes.jsx"
 import { LanguageProvider, useLanguage } from "./helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
@@ -65,10 +67,11 @@ const App = () => {
   return (
     <AppContainer>
       <AppTitle>Фильмы и Сериалы</AppTitle>
-      <Tabs
+      {/* <Tabs
         movies={movies}
         tvShows={tvShows}
-      />
+      /> */}
+      <RouterProvider router={createRouter(movies, tvShows)} />
     </AppContainer>
   )
 }
