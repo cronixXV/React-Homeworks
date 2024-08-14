@@ -22,7 +22,7 @@ module.exports = {
       directory: path.resolve(__dirname, "dist"),
     },
     host: "localhost",
-    port: 3000,
+    port: 3030,
     open: true,
     hot: true,
     compress: true,
