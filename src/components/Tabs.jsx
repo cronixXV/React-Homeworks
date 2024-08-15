@@ -71,9 +71,22 @@ const TabsWrapper = styled.div`
   position: relative;
 `
 
+// Tab использует useMatch для определения активной вкладки.
+const Tab = ({ to, children }) => {
+  const match = useMatch(to)
+  return (
+    <TabButton
+      to={to}
+      active={match}
+    >
+      {children}
+    </TabButton>
+  )
+}
+
 export default function Tabs({ movies, tvShows }) {
   const navigate = useNavigate()
-  const { language, setLanguage } = useLanguage()
+  const { language, toggleLanguage } = useLanguage()
 
   //Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
   const tabs = [
@@ -84,7 +97,7 @@ export default function Tabs({ movies, tvShows }) {
   ]
 
   const handleLanguageChange = () => {
-    setLanguage(language === "ru" ? "en-US" : "ru")
+    toggleLanguage()
   }
 
   const handleBackClick = () => {
@@ -99,16 +112,10 @@ export default function Tabs({ movies, tvShows }) {
       </LanguageButton>
       <TabsContainer>
         <TabList>
-          // Используем useMatch напрямую в компоненте для определения активной
-          вкладки.
+          {/* Используем компонент Tab для определения активной вкладки. */}
           {tabs.map((tab) => (
             <TabItem key={tab.path}>
-              <TabButton
-                to={tab.path}
-                active={useMatch(tab.path)}
-              >
-                {tab.label}
-              </TabButton>
+              <Tab to={tab.path}>{tab.label}</Tab>
             </TabItem>
           ))}
         </TabList>

@@ -67,10 +67,6 @@ const App = () => {
   return (
     <AppContainer>
       <AppTitle>Фильмы и Сериалы</AppTitle>
-      {/* <Tabs
-        movies={movies}
-        tvShows={tvShows}
-      /> */}
       <RouterProvider router={createRouter(movies, tvShows)} />
     </AppContainer>
   )
