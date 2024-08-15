@@ -5,6 +5,7 @@ import { useLanguage } from "../helpers/LanguageContext.jsx"
 
 const TabsContainer = styled.div`
   margin: 20px;
+  position: relative;
 `
 
 const TabList = styled.ul`
@@ -60,7 +61,8 @@ const BackButton = styled.button`
   font-size: 16px;
   position: absolute;
   top: 10px;
-  left: 870px;
+  right: 20px;
+  pointer-events: none;
 
   &:hover {
     background-color: #0056b3;
@@ -94,6 +96,7 @@ export default function Tabs({ movies, tvShows }) {
     { path: "/tv-shows", label: "Сериалы" },
     { path: "/random-movie", label: "Случайный фильм" },
     { path: "/best-movies", label: "Лучшие фильмы" },
+    { path: "/feedback", label: "Обратная связь" },
   ]
 
   const handleLanguageChange = () => {
