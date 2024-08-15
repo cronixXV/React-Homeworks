@@ -1,10 +1,7 @@
-import React, { useState } from "react"
-import Movies from "./Movies.jsx"
-import TVShows from "./TVShows.jsx"
-import RandomMovie from "./RandomMovie.jsx"
-import BestMovies from "./BestMovies.jsx"
-import { useLanguage } from "../helpers/LanguageContext.jsx"
+import React from "react"
+import { Link, useNavigate, useMatch } from "react-router-dom"
 import styled from "styled-components"
+import { useLanguage } from "../helpers/LanguageContext.jsx"
 
 const TabsContainer = styled.div`
   margin: 20px;
@@ -18,26 +15,24 @@ const TabList = styled.ul`
 `
 
 const TabItem = styled.li`
+  padding: 10px 20px;
   margin-right: 10px;
 `
 
-const TabButton = styled.button`
+const TabButton = styled(Link)`
   background-color: transparent;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
   color: #333;
+  text-decoration: none;
   border-bottom: ${(props) =>
-    props["data-active"] ? "2px solid #007bff" : "2px solid transparent"};
+    props.active ? "2px solid #007bff" : "2px solid transparent"};
 
   &:hover {
     border-bottom: 2px solid #007bff;
   }
-`
-
-const TabContent = styled.div`
-  margin-top: 20px;
 `
 
 const LanguageButton = styled.button`
@@ -48,8 +43,24 @@ const LanguageButton = styled.button`
   cursor: pointer;
   font-size: 16px;
   position: absolute;
-  top: 50px;
+  top: -50px;
   right: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+const BackButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 10px;
+  left: 870px;
 
   &:hover {
     background-color: #0056b3;
@@ -59,64 +70,55 @@ const LanguageButton = styled.button`
 const TabsWrapper = styled.div`
   position: relative;
 `
-export default function Tabs({ movies, tvShows }) {
-  const [activeTab, setActiveTab] = useState("movies")
-  const { language, setLanguage } = useLanguage()
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab)
-  }
+// Tab использует useMatch для определения активной вкладки.
+const Tab = ({ to, children }) => {
+  const match = useMatch(to)
+  return (
+    <TabButton
+      to={to}
+      active={match}
+    >
+      {children}
+    </TabButton>
+  )
+}
+
+export default function Tabs({ movies, tvShows }) {
+  const navigate = useNavigate()
+  const { language, toggleLanguage } = useLanguage()
+
+  //Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
+  const tabs = [
+    { path: "/movies", label: "Фильмы" },
+    { path: "/tv-shows", label: "Сериалы" },
+    { path: "/random-movie", label: "Случайный фильм" },
+    { path: "/best-movies", label: "Лучшие фильмы" },
+  ]
 
   const handleLanguageChange = () => {
-    setLanguage(language === "ru" ? "en-US" : "ru")
+    toggleLanguage()
+  }
+
+  const handleBackClick = () => {
+    navigate("/")
   }
 
   return (
     <TabsWrapper>
+      <BackButton onClick={handleBackClick}>На главную</BackButton>
       <LanguageButton onClick={handleLanguageChange}>
         {language === "ru" ? "Switch to English" : "Переключить на русский"}
       </LanguageButton>
       <TabsContainer>
         <TabList>
-          <TabItem>
-            <TabButton
-              active={activeTab === "movies" ? "true" : "false"}
-              onClick={() => handleTabClick("movies")}
-            >
-              Фильмы
-            </TabButton>
-          </TabItem>
-          <TabItem>
-            <TabButton
-              active={activeTab === "tvShows" ? "true" : "false"}
-              onClick={() => handleTabClick("tvShows")}
-            >
-              Сериалы
-            </TabButton>
-          </TabItem>
-          <TabItem>
-            <TabButton
-              active={activeTab === "randomMovie" ? "true" : "false"}
-              onClick={() => handleTabClick("randomMovie")}
-            >
-              Случайный фильм
-            </TabButton>
-          </TabItem>
-          <TabItem>
-            <TabButton
-              active={activeTab === "bestMovies" ? "true" : "false"}
-              onClick={() => handleTabClick("bestMovies")}
-            >
-              Лучшие фильмы
-            </TabButton>
-          </TabItem>
+          {/* Используем компонент Tab для определения активной вкладки. */}
+          {tabs.map((tab) => (
+            <TabItem key={tab.path}>
+              <Tab to={tab.path}>{tab.label}</Tab>
+            </TabItem>
+          ))}
         </TabList>
-        <TabContent>
-          {activeTab === "movies" && <Movies movies={movies} />}
-          {activeTab === "tvShows" && <TVShows tvShows={tvShows} />}
-          {activeTab === "randomMovie" && <RandomMovie movies={movies} />}
-          {activeTab === "bestMovies" && <BestMovies movies={movies} />}
-        </TabContent>
       </TabsContainer>
     </TabsWrapper>
   )
