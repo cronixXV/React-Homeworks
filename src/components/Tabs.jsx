@@ -45,7 +45,7 @@ const LanguageButton = styled.button`
   font-size: 16px;
   position: absolute;
   top: -50px;
-  right: 20px;
+  right: 250px;
 
   &:hover {
     background-color: #0056b3;
@@ -60,12 +60,14 @@ const BackButton = styled.button`
   cursor: pointer;
   font-size: 16px;
   position: absolute;
-  top: 10px;
-  right: 20px;
-  pointer-events: none;
+  top: -50px;
+  right: 100px;
 
   &:hover {
     background-color: #0056b3;
+  }
+  &:focus {
+    outline: none;
   }
 `
 
@@ -103,13 +105,13 @@ export default function Tabs({ movies, tvShows }) {
     toggleLanguage()
   }
 
-  const handleBackClick = () => {
+  const handleHomeClick = () => {
     navigate("/")
   }
 
   return (
     <TabsWrapper>
-      <BackButton onClick={handleBackClick}>На главную</BackButton>
+      <BackButton onClick={handleHomeClick}>На главную</BackButton>
       <LanguageButton onClick={handleLanguageChange}>
         {language === "ru" ? "Switch to English" : "Переключить на русский"}
       </LanguageButton>

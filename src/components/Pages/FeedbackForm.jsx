@@ -81,7 +81,7 @@ export default function FeedbackForm() {
     if (!rating)
       newErrors.rating = 'Поле "Ваша оценка" обязательна для заполнения'
     if (!comment)
-      newErrors.comment = 'Поле "Ваш комментарий" обязателен для заполнения'
+      newErrors.comment = 'Поле "Ваш рецензия" обязателен для заполнения'
 
     if (Object.keys(newErrors).length > 0) {
       setError(newErrors)
