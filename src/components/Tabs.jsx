@@ -5,6 +5,7 @@ import { useLanguage } from "../helpers/LanguageContext.jsx"
 
 const TabsContainer = styled.div`
   margin: 20px;
+  position: relative;
 `
 
 const TabList = styled.ul`
@@ -44,7 +45,7 @@ const LanguageButton = styled.button`
   font-size: 16px;
   position: absolute;
   top: -50px;
-  right: 20px;
+  right: 250px;
 
   &:hover {
     background-color: #0056b3;
@@ -59,11 +60,14 @@ const BackButton = styled.button`
   cursor: pointer;
   font-size: 16px;
   position: absolute;
-  top: 10px;
-  left: 870px;
+  top: -50px;
+  right: 100px;
 
   &:hover {
     background-color: #0056b3;
+  }
+  &:focus {
+    outline: none;
   }
 `
 
@@ -94,19 +98,20 @@ export default function Tabs({ movies, tvShows }) {
     { path: "/tv-shows", label: "Сериалы" },
     { path: "/random-movie", label: "Случайный фильм" },
     { path: "/best-movies", label: "Лучшие фильмы" },
+    { path: "/feedback", label: "Обратная связь" },
   ]
 
   const handleLanguageChange = () => {
     toggleLanguage()
   }
 
-  const handleBackClick = () => {
+  const handleHomeClick = () => {
     navigate("/")
   }
 
   return (
     <TabsWrapper>
-      <BackButton onClick={handleBackClick}>На главную</BackButton>
+      <BackButton onClick={handleHomeClick}>На главную</BackButton>
       <LanguageButton onClick={handleLanguageChange}>
         {language === "ru" ? "Switch to English" : "Переключить на русский"}
       </LanguageButton>

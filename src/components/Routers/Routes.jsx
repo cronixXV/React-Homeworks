@@ -6,6 +6,7 @@ import TVShowsPage from "../Pages/TVShowsPage.jsx"
 import RandomMoviePage from "../RandomMovie.jsx"
 import BestMoviesPage from "../BestMovies.jsx"
 import NotFoundPage from "../Pages/NotFoundPage.jsx"
+import FeedbackForm from "../Pages/FeedbackForm.jsx"
 
 const createRouter = (movies, tvShows) =>
   createBrowserRouter([
@@ -37,6 +38,11 @@ const createRouter = (movies, tvShows) =>
         {
           path: "best-movies",
           element: <BestMoviesPage movies={movies} />,
+        },
+        {
+          path: "feedback",
+          element: <FeedbackForm />,
+          // action: feedbackAction,
         },
         {
           path: "*",

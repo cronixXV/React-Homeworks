@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import Tabs from "./components/Tabs.jsx"
 import { RouterProvider } from "react-router-dom"
 import createRouter from "./components/Routers/Routes.jsx"
 import { LanguageProvider, useLanguage } from "./helpers/LanguageContext.jsx"
