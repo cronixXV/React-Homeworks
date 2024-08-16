@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 import { Form } from "react-router-dom"
-import useNameInput from "../Hooks/useNameInput"
-import useRatingInput from "../Hooks/useRatingInput"
-import useCommentInput from "../Hooks/useCommentInput"
+import useInput from "../Hooks/useInput"
 
 const Container = styled.div`
   max-width: 600px;
@@ -40,6 +38,8 @@ const Textarea = styled.textarea`
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-height: 100px;
+  resize: vertical;
 `
 
 const Input = styled.input`
@@ -64,12 +64,31 @@ const ErrorMessage = styled.p`
 `
 
 export default function FeedbackForm() {
+  const name = useInput("", "name", true, {
+    name: 'Поле "Ваше имя" обязательно для заполнения',
+  })
+  const rating = useInput(
+    "",
+    "rating",
+    true,
+    [
+      { value: "", label: "Выберите оценку" },
+      { value: "1", label: "1" },
+      { value: "2", label: "2" },
+      { value: "3", label: "3" },
+      { value: "4", label: "4" },
+      { value: "5", label: "5" },
+    ],
+    {
+      rating: 'Поле "Ваша оценка" обязательно для заполнения',
+    }
+  )
+  const comment = useInput("", "comment", true, {
+    comment: 'Поле "Ваша рецензия" обязательно для заполнения',
+  })
   // const [name, setName] = useState("")
-  const name = useNameInput("", "name", true)
   // const [rating, setRating] = useState("")
-  const rating = useRatingInput("", "rating", true)
   // const [comment, setComment] = useState("")
-  const comment = useCommentInput("", "comment", true)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const nameRef = useRef(null)
@@ -88,7 +107,7 @@ export default function FeedbackForm() {
     if (!rating.value)
       newErrors.rating = 'Поле "Ваша оценка" обязательно для заполнения'
     if (!comment.value)
-      newErrors.comment = 'Поле "Ваш комментарий" обязательно для заполнения'
+      newErrors.comment = 'Поле "Ваш рецензия" обязательно для заполнения'
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -96,6 +115,15 @@ export default function FeedbackForm() {
     }
     setSubmitted(true)
   }
+
+  useEffect(() => {
+    if (name.error)
+      setErrors((prevErrors) => ({ ...prevErrors, name: name.error }))
+    if (rating.error)
+      setErrors((prevErrors) => ({ ...prevErrors, rating: rating.error }))
+    if (comment.error)
+      setErrors((prevErrors) => ({ ...prevErrors, comment: comment.error }))
+  }, [name, rating, comment])
 
   if (submitted) {
     return (
@@ -127,7 +155,7 @@ export default function FeedbackForm() {
             {...name}
             ref={nameRef}
           />
-          {name.error && <ErrorMessage>{name.error}</ErrorMessage>}
+          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
 
           {/* <Input
             type="text"
@@ -154,7 +182,8 @@ export default function FeedbackForm() {
               </option>
             ))}
           </Select>
-          {rating.error && <ErrorMessage>{rating.error}</ErrorMessage>}
+          {errors.rating && <ErrorMessage>{errors.rating}</ErrorMessage>}
+
           {/* <Select
             id="rating"
             name="rating"
@@ -176,7 +205,7 @@ export default function FeedbackForm() {
         <div>
           <Label htmlFor={comment.id}>Ваша рецензия</Label>
           <Textarea {...comment} />
-          {comment.error && <ErrorMessage>{comment.error}</ErrorMessage>}
+          {errors.comment && <ErrorMessage>{errors.comment}</ErrorMessage>}
           {/* <Textarea
             id="comment"
             name="comment"
