@@ -63,26 +63,22 @@ const ErrorMessage = styled.p`
   margin-top: 5px;
 `
 
+const options = [
+  { value: "", label: "Выберите оценку" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+]
+
 export default function FeedbackForm() {
   const name = useInput("", "name", true, {
     name: 'Поле "Ваше имя" обязательно для заполнения',
   })
-  const rating = useInput(
-    "",
-    "rating",
-    true,
-    [
-      { value: "", label: "Выберите оценку" },
-      { value: "1", label: "1" },
-      { value: "2", label: "2" },
-      { value: "3", label: "3" },
-      { value: "4", label: "4" },
-      { value: "5", label: "5" },
-    ],
-    {
-      rating: 'Поле "Ваша оценка" обязательно для заполнения',
-    }
-  )
+  const rating = useInput("", "rating", true, {
+    rating: 'Поле "Ваша оценка" обязательно для заполнения',
+  })
   const comment = useInput("", "comment", true, {
     comment: 'Поле "Ваша рецензия" обязательно для заполнения',
   })
@@ -173,7 +169,7 @@ export default function FeedbackForm() {
         <div>
           <Label htmlFor={rating.id}>Ваша оценка</Label>
           <Select {...rating}>
-            {rating.options.map((option) => (
+            {options.map((option) => (
               <option
                 key={option.value}
                 value={option.value}
