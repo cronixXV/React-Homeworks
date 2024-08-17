@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 import { Form } from "react-router-dom"
+import useInput from "../Hooks/useInput"
 
 const Container = styled.div`
   max-width: 600px;
@@ -37,6 +38,8 @@ const Textarea = styled.textarea`
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-height: 100px;
+  resize: vertical;
 `
 
 const Input = styled.input`
@@ -60,11 +63,29 @@ const ErrorMessage = styled.p`
   margin-top: 5px;
 `
 
+const options = [
+  { value: "", label: "Выберите оценку" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+]
+
 export default function FeedbackForm() {
-  const [name, setName] = useState("")
-  const [rating, setRating] = useState("")
-  const [comment, setComment] = useState("")
-  const [error, setError] = useState({})
+  const name = useInput("", "name", true, {
+    name: 'Поле "Ваше имя" обязательно для заполнения',
+  })
+  const rating = useInput("", "rating", true, {
+    rating: 'Поле "Ваша оценка" обязательно для заполнения',
+  })
+  const comment = useInput("", "comment", true, {
+    comment: 'Поле "Ваша рецензия" обязательно для заполнения',
+  })
+  // const [name, setName] = useState("")
+  // const [rating, setRating] = useState("")
+  // const [comment, setComment] = useState("")
+  const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const nameRef = useRef(null)
 
@@ -77,26 +98,36 @@ export default function FeedbackForm() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
     const newErrors = {}
-    if (!name) newErrors.name = 'Поле "Ваше имя" обязательно для заполнения'
-    if (!rating)
-      newErrors.rating = 'Поле "Ваша оценка" обязательна для заполнения'
-    if (!comment)
-      newErrors.comment = 'Поле "Ваш рецензия" обязателен для заполнения'
+    if (!name.value)
+      newErrors.name = 'Поле "Ваше имя" обязательно для заполнения'
+    if (!rating.value)
+      newErrors.rating = 'Поле "Ваша оценка" обязательно для заполнения'
+    if (!comment.value)
+      newErrors.comment = 'Поле "Ваш рецензия" обязательно для заполнения'
 
     if (Object.keys(newErrors).length > 0) {
-      setError(newErrors)
+      setErrors(newErrors)
       return
     }
     setSubmitted(true)
   }
 
+  useEffect(() => {
+    if (name.error)
+      setErrors((prevErrors) => ({ ...prevErrors, name: name.error }))
+    if (rating.error)
+      setErrors((prevErrors) => ({ ...prevErrors, rating: rating.error }))
+    if (comment.error)
+      setErrors((prevErrors) => ({ ...prevErrors, comment: comment.error }))
+  }, [name, rating, comment])
+
   if (submitted) {
     return (
       <Container>
         <h2>Спасибо за ваш отзыв</h2>
-        <p>Имя: {name}</p>
-        <p>Оценка: {rating}</p>
-        <p>Комментарий: {comment}</p>
+        <p>Имя: {name.value}</p>
+        <p>Оценка: {rating.value}</p>
+        <p>Комментарий: {comment.value}</p>
       </Container>
     )
   }
@@ -115,8 +146,14 @@ export default function FeedbackForm() {
         onSubmit={handleOnSubmit}
       >
         <div>
-          <Label htmlFor="name">Ваше имя</Label>
+          <Label htmlFor={name.id}>Ваше имя</Label>
           <Input
+            {...name}
+            ref={nameRef}
+          />
+          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+
+          {/* <Input
             type="text"
             id="name"
             name="name"
@@ -126,12 +163,24 @@ export default function FeedbackForm() {
           />
           {error.name && (
             <ErrorMessage style={{ color: "red" }}>{error.name}</ErrorMessage>
-          )}
+          )} */}
         </div>
 
         <div>
-          <Label htmlFor="rating">Ваша оценка</Label>
-          <Select
+          <Label htmlFor={rating.id}>Ваша оценка</Label>
+          <Select {...rating}>
+            {options.map((option) => (
+              <option
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ))}
+          </Select>
+          {errors.rating && <ErrorMessage>{errors.rating}</ErrorMessage>}
+
+          {/* <Select
             id="rating"
             name="rating"
             value={rating}
@@ -146,12 +195,14 @@ export default function FeedbackForm() {
           </Select>
           {error.rating && (
             <ErrorMessage style={{ color: "red" }}>{error.rating}</ErrorMessage>
-          )}
+          )} */}
         </div>
 
         <div>
-          <Label htmlFor="comment">Ваша рецензия</Label>
-          <Textarea
+          <Label htmlFor={comment.id}>Ваша рецензия</Label>
+          <Textarea {...comment} />
+          {errors.comment && <ErrorMessage>{errors.comment}</ErrorMessage>}
+          {/* <Textarea
             id="comment"
             name="comment"
             value={comment}
@@ -162,7 +213,7 @@ export default function FeedbackForm() {
             <ErrorMessage style={{ color: "red" }}>
               {error.comment}
             </ErrorMessage>
-          )}
+          )} */}
         </div>
 
         <div
