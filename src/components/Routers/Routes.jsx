@@ -7,6 +7,7 @@ import RandomMoviePage from "../RandomMovie.jsx"
 import BestMoviesPage from "../BestMovies.jsx"
 import NotFoundPage from "../Pages/NotFoundPage.jsx"
 import FeedbackForm from "../Pages/FeedbackForm.jsx"
+import ErrorBoundary from "../ErrorBoundary.jsx"
 
 const createRouter = (movies, tvShows) =>
   createBrowserRouter([
@@ -21,7 +22,11 @@ const createRouter = (movies, tvShows) =>
       children: [
         {
           index: true,
-          element: <HomePage />,
+          element: (
+            <ErrorBoundary>
+              <HomePage />
+            </ErrorBoundary>
+          ),
         },
         {
           path: "movies",
