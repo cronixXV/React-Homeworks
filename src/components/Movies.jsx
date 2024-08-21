@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
+import { useSelector } from "react-redux"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
 
@@ -11,7 +12,9 @@ const MoviesTitle = styled.h1`
   margin-bottom: 20px;
 `
 
-export default function Movies({ movies }) {
+const Movies = () => {
+  const movies = useSelector((state) => state.movies.moviesList)
+
   return (
     <MoviesContainer>
       <MoviesTitle>Популярные фильмы</MoviesTitle>
@@ -19,3 +22,5 @@ export default function Movies({ movies }) {
     </MoviesContainer>
   )
 }
+
+export default Movies

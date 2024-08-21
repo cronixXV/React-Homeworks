@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useNavigate, useMatch } from "react-router-dom"
 import styled from "styled-components"
-import { useLanguage } from "../helpers/LanguageContext.jsx"
+import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const TabsContainer = styled.div`
   margin: 20px;

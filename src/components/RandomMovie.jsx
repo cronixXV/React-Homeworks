@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import getRandomMovie from "../helpers/getRandomMovie"
+import getRandomMovie from "../Helpers/getRandomMovie"
 import styled from "styled-components"
 
 const RandomMovieContainer = styled.div`

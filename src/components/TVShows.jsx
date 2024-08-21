@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
+import { useSelector } from "react-redux"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
 
@@ -11,7 +12,9 @@ const TVShowsTitle = styled.h1`
   margin-bottom: 20px;
 `
 
-export default function TVShows({ tvShows }) {
+const TVShows = () => {
+  const tvShows = useSelector((state) => state.tvShows.tvShowsList)
+
   return (
     <TVShowsContainer>
       <TVShowsTitle>Популярные сериалы</TVShowsTitle>
@@ -19,3 +22,5 @@ export default function TVShows({ tvShows }) {
     </TVShowsContainer>
   )
 }
+
+export default TVShows
