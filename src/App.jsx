@@ -1,14 +1,9 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useDispatch } from "react-redux"
 import { RouterProvider } from "react-router-dom"
 import createRouter from "./components/Routers/Routes.jsx"
 import { LanguageProvider, useLanguage } from "./Helpers/LanguageContext.jsx"
-import useFetch from "./components/Hooks/useFetch.js"
 import styled from "styled-components"
-import { save as saveMovies } from "./components/Reducers/Slices/moviesSlice"
-import { save as saveTvShows } from "./components/Reducers/Slices/tvShowsSlice"
-
-const API_KEY = process.env.REACT_APP_API_KEY
 
 const AppContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -29,33 +24,6 @@ const App = () => {
   const dispatch = useDispatch()
   const { language } = useLanguage()
 
-  const {
-    data: moviesData,
-    loading: moviesLoading,
-    error: moviesError,
-    // getData: getMovies,
-  } = useFetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=${language}&page=1`
-  )
-
-  const {
-    data: tvShowsData,
-    loading: tvShowsLoading,
-    error: tvShowsError,
-    // getData: getTvShows,
-  } = useFetch(
-    `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=${language}&page=1`
-  )
-
-  useEffect(() => {
-    if (moviesData) {
-      dispatch(saveMovies(moviesData.results))
-    }
-    if (tvShowsData) {
-      dispatch(saveTvShows(tvShowsData.results))
-    }
-  }, [moviesData, tvShowsData, dispatch])
-
   // Приводит к бесконечным запросам, так как useEffect постоянно вызывает getMovies и getTvShows
   // useEffect(() => {
   //   getMovies(
@@ -68,17 +36,6 @@ const App = () => {
 
   // const movies = moviesData ? moviesData.results : []
   // const tvShows = tvShowsData ? tvShowsData.results : []
-
-  const movies = useSelector((state) => state.movies.moviesList)
-  const tvShows = useSelector((state) => state.tvShows.tvShowsList)
-
-  if (moviesError || tvShowsError) {
-    return <div>Ошибка: {moviesError || tvShowsError}</div>
-  }
-
-  if (moviesLoading || tvShowsLoading) {
-    return <div>Загрузка...</div>
-  }
 
   // useEffect(() => {
   //   const fetchMovies = async () => {
@@ -122,7 +79,7 @@ const App = () => {
   return (
     <AppContainer>
       <AppTitle>Фильмы и Сериалы</AppTitle>
-      <RouterProvider router={createRouter(movies, tvShows)} />
+      <RouterProvider router={createRouter()} />
     </AppContainer>
   )
 }
