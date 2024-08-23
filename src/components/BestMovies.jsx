@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { fetchMovies } from "../components/Reducers/Slices/moviesSlice"
+import { useFetchContent } from "./Hooks/useFetchСontent.js"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const BestMoviesContainer = styled.div`
@@ -14,39 +13,30 @@ const BestMovieTitle = styled.h2`
 `
 
 export default function BestMovies() {
-  const dispatch = useDispatch()
   const { language } = useLanguage()
-  const movies = useSelector((state) => state.movies.moviesList)
-  const moviesStatus = useSelector((state) => state.movies.status)
-  const moviesError = useSelector((state) => state.movies.error)
+  const { contentList, status, error } = useFetchContent("movies", language)
   const [currentMovie, setCurrentMovie] = useState(null)
 
   useEffect(() => {
-    if (moviesStatus === "idle") {
-      dispatch(fetchMovies(language))
-    }
-  }, [dispatch, language, moviesStatus])
-
-  useEffect(() => {
-    if (Array.isArray(movies) && movies.length > 0) {
+    if (Array.isArray(contentList) && contentList.length > 0) {
       const intervalId = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * movies.length)
-        setCurrentMovie(movies[randomIndex])
+        const randomIndex = Math.floor(Math.random() * contentList.length)
+        setCurrentMovie(contentList[randomIndex])
       }, 3000)
 
       return () => clearInterval(intervalId)
     }
-  }, [movies])
+  }, [contentList])
 
-  if (moviesStatus === "loading") {
+  if (status === "loading") {
     return <div>Загрузка...</div>
   }
 
-  if (moviesStatus === "failed") {
-    return <div>Ошибка: {moviesError}</div>
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
   }
 
-  if (!Array.isArray(movies) || movies.length === 0) {
+  if (!Array.isArray(contentList) || contentList.length === 0) {
     return <div>Нет данных для отображения</div>
   }
 

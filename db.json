@@ -1,3 +1,16 @@
 {
-  "logs": []
+  "logs": [
+    {
+      "id": "7ce5",
+      "message": "LanguageProvider is not defined",
+      "stack": "\n    at AppWithLanguageProvider (webpack-internal:///./src/App.jsx:82:78)\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-23T18:05:56.158Z"
+    },
+    {
+      "id": "97cd",
+      "message": "Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.",
+      "stack": "\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-23T18:06:15.232Z"
+    }
+  ]
 }

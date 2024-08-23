@@ -1,8 +1,7 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useFetchContent } from "./Hooks/useFetchСontent.js"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
-import { fetchMovies } from "../components/Reducers/Slices/moviesSlice"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const MoviesContainer = styled.div`
@@ -15,28 +14,21 @@ const MoviesTitle = styled.h1`
 `
 
 const Movies = () => {
-  const dispatch = useDispatch()
   const { language } = useLanguage()
-  const movies = useSelector((state) => state.movies.moviesList)
-  const moviesStatus = useSelector((state) => state.movies.status)
-  const moviesError = useSelector((state) => state.movies.error)
+  const { contentList, status, error } = useFetchContent("movies", language)
 
-  useEffect(() => {
-    dispatch(fetchMovies(language))
-  }, [dispatch, language])
-
-  if (moviesStatus === "loading") {
+  if (status === "loading") {
     return <div>Загрузка...</div>
   }
 
-  if (moviesStatus === "failed") {
-    return <div>Ошибка: {moviesError}</div>
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
   }
 
   return (
     <MoviesContainer>
       <MoviesTitle>Популярные фильмы</MoviesTitle>
-      <MovieContainer movies={movies} />
+      <MovieContainer movies={contentList} />
     </MoviesContainer>
   )
 }

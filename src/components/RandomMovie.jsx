@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useFetchContent } from "./Hooks/useFetchСontent.js"
 import getRandomMovie from "../Helpers/getRandomMovie"
 import styled from "styled-components"
-import { fetchMovies } from "../components/Reducers/Slices/moviesSlice"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const RandomMovieContainer = styled.div`
@@ -39,37 +38,28 @@ const RandomMovieButton = styled.button`
 `
 
 export default function RandomMovie() {
-  const dispatch = useDispatch()
   const { language } = useLanguage()
-  const movies = useSelector((state) => state.movies.moviesList)
-  const moviesStatus = useSelector((state) => state.movies.status)
-  const moviesError = useSelector((state) => state.movies.error)
+  const { contentList, status, error } = useFetchContent("movies", language)
   const [randomMovie, setRandomMovie] = useState(null)
 
   useEffect(() => {
-    if (moviesStatus === "idle") {
-      dispatch(fetchMovies(language))
-    }
-  }, [dispatch, language, moviesStatus])
-
-  useEffect(() => {
-    if (Array.isArray(movies) && movies.length > 0) {
-      const sortedMovies = [...movies].sort(
+    if (Array.isArray(contentList) && contentList.length > 0) {
+      const sortedMovies = [...contentList].sort(
         (a, b) => b.vote_count - a.vote_count
       )
       setRandomMovie(getRandomMovie(sortedMovies))
     }
-  }, [movies])
+  }, [contentList])
 
-  if (moviesStatus === "loading") {
+  if (status === "loading") {
     return <div>Загрузка...</div>
   }
 
-  if (moviesStatus === "failed") {
-    return <div>Ошибка: {moviesError}</div>
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
   }
 
-  if (!Array.isArray(movies) || movies.length === 0) {
+  if (!Array.isArray(contentList) || contentList.length === 0) {
     return <div>Нет данных для отображения</div>
   }
 
@@ -84,7 +74,9 @@ export default function RandomMovie() {
       <RandomMovieReleaseDate>
         Дата выхода: {randomMovie.release_date}
       </RandomMovieReleaseDate>
-      <RandomMovieButton onClick={() => setRandomMovie(getRandomMovie(movies))}>
+      <RandomMovieButton
+        onClick={() => setRandomMovie(getRandomMovie(contentList))}
+      >
         Показать другой случайный фильм
       </RandomMovieButton>
     </RandomMovieContainer>

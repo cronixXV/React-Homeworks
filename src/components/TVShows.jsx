@@ -1,8 +1,7 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useFetchContent } from "./Hooks/useFetchСontent.js"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
-import { fetchTvShows } from "../components/Reducers/Slices/tvShowsSlice"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const TVShowsContainer = styled.div`
@@ -15,28 +14,21 @@ const TVShowsTitle = styled.h1`
 `
 
 const TVShows = () => {
-  const dispatch = useDispatch()
   const { language } = useLanguage()
-  const tvShows = useSelector((state) => state.tvShows.tvShowsList)
-  const tvShowsStatus = useSelector((state) => state.tvShows.status)
-  const tvShowsError = useSelector((state) => state.tvShows.error)
+  const { contentList, status, error } = useFetchContent("tvShows", language)
 
-  useEffect(() => {
-    dispatch(fetchTvShows(language))
-  }, [dispatch, language])
-
-  if (tvShowsStatus === "loading") {
+  if (status === "loading") {
     return <div>Загрузка...</div>
   }
 
-  if (tvShowsStatus === "failed") {
-    return <div>Ошибка: {tvShowsError}</div>
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
   }
 
   return (
     <TVShowsContainer>
       <TVShowsTitle>Популярные сериалы</TVShowsTitle>
-      <MovieContainer movies={tvShows} />
+      <MovieContainer movies={contentList} />
     </TVShowsContainer>
   )
 }
