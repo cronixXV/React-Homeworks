@@ -1,6 +1,6 @@
 import React from "react"
-import MovieContainer from "../MovieContainer.jsx"
+import TVShows from "../TVShows.jsx"
 
-export default function TVShowsPage({ tvShows }) {
-  return <MovieContainer movies={tvShows} />
+export default function TVShowsPage() {
+  return <TVShows />
 }

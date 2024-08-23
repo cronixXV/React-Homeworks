@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
-import { fetchTvShows } from "./components/Reducers/Slices/tvShowsSlice"
+import { fetchTvShows } from "../components/Reducers/Slices/tvShowsSlice"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const TVShowsContainer = styled.div`

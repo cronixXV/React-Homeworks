@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import getRandomMovie from "../Helpers/getRandomMovie"
 import styled from "styled-components"
+import { fetchMovies } from "../components/Reducers/Slices/moviesSlice"
+import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const RandomMovieContainer = styled.div`
   margin: 20px;
@@ -35,21 +38,40 @@ const RandomMovieButton = styled.button`
   }
 `
 
-export default function RandomMovie({ movies }) {
+export default function RandomMovie() {
+  const dispatch = useDispatch()
+  const { language } = useLanguage()
+  const movies = useSelector((state) => state.movies.moviesList)
+  const moviesStatus = useSelector((state) => state.movies.status)
+  const moviesError = useSelector((state) => state.movies.error)
   const [randomMovie, setRandomMovie] = useState(null)
 
   useEffect(() => {
-    const fetchRandomMovie = () => {
-      if (movies.length > 0) {
-        const sortedMovies = [...movies].sort(
-          (a, b) => b.vote_count - a.vote_count
-        )
-        setRandomMovie(getRandomMovie(sortedMovies))
-      }
+    if (moviesStatus === "idle") {
+      dispatch(fetchMovies(language))
     }
+  }, [dispatch, language, moviesStatus])
 
-    fetchRandomMovie()
+  useEffect(() => {
+    if (Array.isArray(movies) && movies.length > 0) {
+      const sortedMovies = [...movies].sort(
+        (a, b) => b.vote_count - a.vote_count
+      )
+      setRandomMovie(getRandomMovie(sortedMovies))
+    }
   }, [movies])
+
+  if (moviesStatus === "loading") {
+    return <div>Загрузка...</div>
+  }
+
+  if (moviesStatus === "failed") {
+    return <div>Ошибка: {moviesError}</div>
+  }
+
+  if (!Array.isArray(movies) || movies.length === 0) {
+    return <div>Нет данных для отображения</div>
+  }
 
   if (!randomMovie) {
     return <div>Загрузка...</div>

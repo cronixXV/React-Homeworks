@@ -9,16 +9,11 @@ import NotFoundPage from "../Pages/NotFoundPage.jsx"
 import FeedbackForm from "../Pages/FeedbackForm.jsx"
 import ErrorBoundary from "../ErrorBoundary.jsx"
 
-const createRouter = (movies, tvShows) =>
+const createRouter = () =>
   createBrowserRouter([
     {
       path: "/",
-      element: (
-        <MainLayout
-          movies={movies}
-          tvShows={tvShows}
-        />
-      ),
+      element: <MainLayout />,
       children: [
         {
           index: true,
@@ -30,24 +25,23 @@ const createRouter = (movies, tvShows) =>
         },
         {
           path: "movies",
-          element: <MoviesPage movies={movies} />,
+          element: <MoviesPage />,
         },
         {
           path: "tv-shows",
-          element: <TVShowsPage tvShows={tvShows} />,
+          element: <TVShowsPage />,
         },
         {
           path: "random-movie",
-          element: <RandomMoviePage movies={movies} />,
+          element: <RandomMoviePage />,
         },
         {
           path: "best-movies",
-          element: <BestMoviesPage movies={movies} />,
+          element: <BestMoviesPage />,
         },
         {
           path: "feedback",
           element: <FeedbackForm />,
-          // action: feedbackAction,
         },
         {
           path: "*",

@@ -1,8 +1,7 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import { RouterProvider } from "react-router-dom"
 import createRouter from "./components/Routers/Routes.jsx"
-import { LanguageProvider, useLanguage } from "./Helpers/LanguageContext.jsx"
+import { LanguageProvider } from "./Helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
 const AppContainer = styled.div`
@@ -21,8 +20,6 @@ const App = () => {
   // const [movies, setMovies] = useState([])
   // const [tvShows, setTvShows] = useState([])
   // const [error, setError] = useState(null)
-  const dispatch = useDispatch()
-  const { language } = useLanguage()
 
   // Приводит к бесконечным запросам, так как useEffect постоянно вызывает getMovies и getTvShows
   // useEffect(() => {

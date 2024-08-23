@@ -1,6 +1,6 @@
 import React from "react"
-import MovieContainer from "../MovieContainer.jsx"
+import Movies from "../Movies.jsx"
 
-export default function MoviesPage({ movies }) {
-  return <MovieContainer movies={movies} />
+export default function MoviesPage() {
+  return <Movies />
 }
