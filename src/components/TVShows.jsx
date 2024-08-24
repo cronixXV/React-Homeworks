@@ -1,5 +1,5 @@
 import React from "react"
-import { useFetchContent } from "./Hooks/useFetchСontent.js"
+import { useFetchTVShows } from "./Hooks/useFetchTVShows.js"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
@@ -15,7 +15,7 @@ const TVShowsTitle = styled.h1`
 
 const TVShows = () => {
   const { language } = useLanguage()
-  const { contentList, status, error } = useFetchContent("tvShows", language)
+  const { tvShowsList, status, error } = useFetchTVShows(language)
 
   if (status === "loading") {
     return <div>Загрузка...</div>
@@ -28,7 +28,7 @@ const TVShows = () => {
   return (
     <TVShowsContainer>
       <TVShowsTitle>Популярные сериалы</TVShowsTitle>
-      <MovieContainer movies={contentList} />
+      <MovieContainer movies={tvShowsList} />
     </TVShowsContainer>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { useFetchContent } from "./Hooks/useFetchСontent.js"
+import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const BestMoviesContainer = styled.div`
@@ -14,19 +14,19 @@ const BestMovieTitle = styled.h2`
 
 export default function BestMovies() {
   const { language } = useLanguage()
-  const { contentList, status, error } = useFetchContent("movies", language)
+  const { moviesList, status, error } = useFetchMovies(language)
   const [currentMovie, setCurrentMovie] = useState(null)
 
   useEffect(() => {
-    if (Array.isArray(contentList) && contentList.length > 0) {
+    if (Array.isArray(moviesList) && moviesList.length > 0) {
       const intervalId = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * contentList.length)
-        setCurrentMovie(contentList[randomIndex])
+        const randomIndex = Math.floor(Math.random() * moviesList.length)
+        setCurrentMovie(moviesList[randomIndex])
       }, 3000)
 
       return () => clearInterval(intervalId)
     }
-  }, [contentList])
+  }, [moviesList])
 
   if (status === "loading") {
     return <div>Загрузка...</div>
@@ -36,7 +36,7 @@ export default function BestMovies() {
     return <div>Ошибка: {error}</div>
   }
 
-  if (!Array.isArray(contentList) || contentList.length === 0) {
+  if (!Array.isArray(moviesList) || moviesList.length === 0) {
     return <div>Нет данных для отображения</div>
   }
 

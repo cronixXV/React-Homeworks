@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useFetchContent } from "./Hooks/useFetchСontent.js"
+import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import getRandomMovie from "../Helpers/getRandomMovie"
 import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
@@ -39,17 +39,17 @@ const RandomMovieButton = styled.button`
 
 export default function RandomMovie() {
   const { language } = useLanguage()
-  const { contentList, status, error } = useFetchContent("movies", language)
+  const { moviesList, status, error } = useFetchMovies(language)
   const [randomMovie, setRandomMovie] = useState(null)
 
   useEffect(() => {
-    if (Array.isArray(contentList) && contentList.length > 0) {
-      const sortedMovies = [...contentList].sort(
+    if (Array.isArray(moviesList) && moviesList.length > 0) {
+      const sortedMovies = [...moviesList].sort(
         (a, b) => b.vote_count - a.vote_count
       )
       setRandomMovie(getRandomMovie(sortedMovies))
     }
-  }, [contentList])
+  }, [moviesList])
 
   if (status === "loading") {
     return <div>Загрузка...</div>
@@ -59,7 +59,7 @@ export default function RandomMovie() {
     return <div>Ошибка: {error}</div>
   }
 
-  if (!Array.isArray(contentList) || contentList.length === 0) {
+  if (!Array.isArray(moviesList) || moviesList.length === 0) {
     return <div>Нет данных для отображения</div>
   }
 
@@ -75,7 +75,7 @@ export default function RandomMovie() {
         Дата выхода: {randomMovie.release_date}
       </RandomMovieReleaseDate>
       <RandomMovieButton
-        onClick={() => setRandomMovie(getRandomMovie(contentList))}
+        onClick={() => setRandomMovie(getRandomMovie(moviesList))}
       >
         Показать другой случайный фильм
       </RandomMovieButton>
