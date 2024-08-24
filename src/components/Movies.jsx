@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
+import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import MovieContainer from "./MovieContainer.jsx"
 import styled from "styled-components"
+import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const MoviesContainer = styled.div`
   margin: 20px;
@@ -11,11 +13,24 @@ const MoviesTitle = styled.h1`
   margin-bottom: 20px;
 `
 
-export default function Movies({ movies }) {
+const Movies = () => {
+  const { language } = useLanguage()
+  const { moviesList, status, error } = useFetchMovies(language)
+
+  if (status === "loading") {
+    return <div>Загрузка...</div>
+  }
+
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
+  }
+
   return (
     <MoviesContainer>
       <MoviesTitle>Популярные фильмы</MoviesTitle>
-      <MovieContainer movies={movies} />
+      <MovieContainer movies={moviesList} />
     </MoviesContainer>
   )
 }
+
+export default Movies

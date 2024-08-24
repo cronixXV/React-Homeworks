@@ -10,6 +10,10 @@ const MovieContainerWrapper = styled.div`
 `
 
 export default function MovieContainer({ movies }) {
+  if (!movies || movies.length === 0) {
+    return <div>Нет данных для отображения</div>
+  }
+
   return (
     <MovieContainerWrapper>
       {movies.map((movie) => (

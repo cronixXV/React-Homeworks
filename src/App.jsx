@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { RouterProvider } from "react-router-dom"
 import createRouter from "./components/Routers/Routes.jsx"
-import { LanguageProvider, useLanguage } from "./helpers/LanguageContext.jsx"
-import useFetch from "./components/Hooks/useFetch.js"
+import { LanguageProvider } from "./Helpers/LanguageContext.jsx"
 import styled from "styled-components"
-
-const API_KEY = process.env.REACT_APP_API_KEY
 
 const AppContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -23,25 +20,6 @@ const App = () => {
   // const [movies, setMovies] = useState([])
   // const [tvShows, setTvShows] = useState([])
   // const [error, setError] = useState(null)
-  const { language } = useLanguage()
-
-  const {
-    data: moviesData,
-    loading: moviesLoading,
-    error: moviesError,
-    // getData: getMovies,
-  } = useFetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=${language}&page=1`
-  )
-
-  const {
-    data: tvShowsData,
-    loading: tvShowsLoading,
-    error: tvShowsError,
-    // getData: getTvShows,
-  } = useFetch(
-    `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=${language}&page=1`
-  )
 
   // Приводит к бесконечным запросам, так как useEffect постоянно вызывает getMovies и getTvShows
   // useEffect(() => {
@@ -53,16 +31,8 @@ const App = () => {
   //   )
   // }, [language, getMovies, getTvShows])
 
-  const movies = moviesData ? moviesData.results : []
-  const tvShows = tvShowsData ? tvShowsData.results : []
-
-  if (moviesError || tvShowsError) {
-    return <div>Ошибка: {moviesError || tvShowsError}</div>
-  }
-
-  if (moviesLoading || tvShowsLoading) {
-    return <div>Загрузка...</div>
-  }
+  // const movies = moviesData ? moviesData.results : []
+  // const tvShows = tvShowsData ? tvShowsData.results : []
 
   // useEffect(() => {
   //   const fetchMovies = async () => {
@@ -106,7 +76,7 @@ const App = () => {
   return (
     <AppContainer>
       <AppTitle>Фильмы и Сериалы</AppTitle>
-      <RouterProvider router={createRouter(movies, tvShows)} />
+      <RouterProvider router={createRouter()} />
     </AppContainer>
   )
 }

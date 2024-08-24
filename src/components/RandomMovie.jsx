@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
-import getRandomMovie from "../helpers/getRandomMovie"
+import React, { useEffect, useState } from "react"
+import { useFetchMovies } from "./Hooks/useFetchMovies.js"
+import getRandomMovie from "../Helpers/getRandomMovie"
 import styled from "styled-components"
+import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
 const RandomMovieContainer = styled.div`
   margin: 20px;
@@ -35,21 +37,31 @@ const RandomMovieButton = styled.button`
   }
 `
 
-export default function RandomMovie({ movies }) {
+export default function RandomMovie() {
+  const { language } = useLanguage()
+  const { moviesList, status, error } = useFetchMovies(language)
   const [randomMovie, setRandomMovie] = useState(null)
 
   useEffect(() => {
-    const fetchRandomMovie = () => {
-      if (movies.length > 0) {
-        const sortedMovies = [...movies].sort(
-          (a, b) => b.vote_count - a.vote_count
-        )
-        setRandomMovie(getRandomMovie(sortedMovies))
-      }
+    if (Array.isArray(moviesList) && moviesList.length > 0) {
+      const sortedMovies = [...moviesList].sort(
+        (a, b) => b.vote_count - a.vote_count
+      )
+      setRandomMovie(getRandomMovie(sortedMovies))
     }
+  }, [moviesList])
 
-    fetchRandomMovie()
-  }, [movies])
+  if (status === "loading") {
+    return <div>Загрузка...</div>
+  }
+
+  if (status === "failed") {
+    return <div>Ошибка: {error}</div>
+  }
+
+  if (!Array.isArray(moviesList) || moviesList.length === 0) {
+    return <div>Нет данных для отображения</div>
+  }
 
   if (!randomMovie) {
     return <div>Загрузка...</div>
@@ -62,7 +74,9 @@ export default function RandomMovie({ movies }) {
       <RandomMovieReleaseDate>
         Дата выхода: {randomMovie.release_date}
       </RandomMovieReleaseDate>
-      <RandomMovieButton onClick={() => setRandomMovie(getRandomMovie(movies))}>
+      <RandomMovieButton
+        onClick={() => setRandomMovie(getRandomMovie(moviesList))}
+      >
         Показать другой случайный фильм
       </RandomMovieButton>
     </RandomMovieContainer>

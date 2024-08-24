@@ -1,6 +1,6 @@
 import React from "react"
 import BestMovies from "../components/BestMovies"
 
-export default function BestMovies({ movies }) {
-  return <BestMovies movies={movies} />
+export default function BestMovies() {
+  return <BestMovies />
 }
