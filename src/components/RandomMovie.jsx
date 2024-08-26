@@ -37,7 +37,12 @@ export default function RandomMovie() {
 
   return (
     <Container className="py-4">
-      <h1 className="display-4 mb-3 fs-2">{randomMovie.title}</h1>
+      <h1
+        className="mb-4"
+        style={{ fontSize: "24px" }}
+      >
+        {randomMovie.title}
+      </h1>
       <p className="lead mb-3">{randomMovie.overview}</p>
       <p className="text-muted">
         Дата выхода: {moment(randomMovie.release_date).format("DD.MM.YYYY")}
