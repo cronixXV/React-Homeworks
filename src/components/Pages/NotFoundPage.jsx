@@ -1,26 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import styled from "styled-components"
-
-const NotFoundContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-`
-
-const NotFoundTitle = styled.h1`
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #333;
-`
-
-const NotFoundMessage = styled.p`
-  font-size: 18px;
-  color: #666;
-`
 
 export default function NotFoundPage() {
   const { id } = useParams()
@@ -41,16 +20,30 @@ export default function NotFoundPage() {
   }, [navigate])
 
   return (
-    <NotFoundContainer>
-      <NotFoundTitle>404 - Страница не найдена</NotFoundTitle>
-      <NotFoundMessage>
+    <div
+      className="container d-flex flex-column align-items-center justify-content-center"
+      style={{ height: "100vh", textAlign: "center" }}
+    >
+      <h1
+        className="mb-4"
+        style={{ fontSize: "32px", color: "#333" }}
+      >
+        404 - Страница не найдена
+      </h1>
+      <p
+        className="mb-4"
+        style={{ fontSize: "18px", color: "#666" }}
+      >
         Извините, но страница, которую вы ищете, не существует.
-      </NotFoundMessage>
+      </p>
       {isNavigate && (
-        <NotFoundMessage>
+        <p
+          className="mb-4"
+          style={{ fontSize: "18px", color: "#666" }}
+        >
           Вы будете перенаправлены на главную страницу через 5 секунд.
-        </NotFoundMessage>
+        </p>
       )}
-    </NotFoundContainer>
+    </div>
   )
 }

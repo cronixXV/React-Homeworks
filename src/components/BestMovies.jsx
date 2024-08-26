@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react"
-import styled from "styled-components"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const BestMoviesContainer = styled.div`
-  margin: 20px;
-`
-
-const BestMovieTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 10px;
-`
 
 export default function BestMovies() {
   const { language } = useLanguage()
@@ -29,24 +19,29 @@ export default function BestMovies() {
   }, [moviesList])
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return <div className="text-center mt-5">Загрузка...</div>
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return <div className="text-center mt-5">Ошибка: {error}</div>
   }
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
-    return <div>Нет данных для отображения</div>
+    return <div className="text-center mt-5">Нет данных для отображения</div>
   }
 
   if (!currentMovie) {
-    return <div>Загрузка...</div>
+    return <div className="text-center mt-5">Загрузка...</div>
   }
 
   return (
-    <BestMoviesContainer>
-      <BestMovieTitle>{currentMovie.title || currentMovie.name}</BestMovieTitle>
-    </BestMoviesContainer>
+    <div className="container mt-5">
+      <h2
+        className="mb-4"
+        style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}
+      >
+        {currentMovie.title || currentMovie.name}
+      </h2>
+    </div>
   )
 }

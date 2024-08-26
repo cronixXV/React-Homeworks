@@ -1,98 +1,28 @@
 import React from "react"
 import { Link, useNavigate, useMatch } from "react-router-dom"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const TabsContainer = styled.div`
-  margin: 20px;
-  position: relative;
-`
-
-const TabList = styled.ul`
-  list-style: none;
-  padding: 0;
-  display: flex;
-  border-bottom: 2px solid #e0e0e0;
-`
-
-const TabItem = styled.li`
-  padding: 10px 20px;
-  margin-right: 10px;
-`
-
-const TabButton = styled(Link)`
-  background-color: transparent;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  text-decoration: none;
-  border-bottom: ${(props) =>
-    props.active ? "2px solid #007bff" : "2px solid transparent"};
-
-  &:hover {
-    border-bottom: 2px solid #007bff;
-  }
-`
-
-const LanguageButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  position: absolute;
-  top: -50px;
-  right: 250px;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-
-const BackButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  position: absolute;
-  top: -50px;
-  right: 100px;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-  &:focus {
-    outline: none;
-  }
-`
-
-const TabsWrapper = styled.div`
-  position: relative;
-`
 
 // Tab использует useMatch для определения активной вкладки.
 const Tab = ({ to, children }) => {
   const match = useMatch(to)
   return (
-    <TabButton
-      to={to}
-      active={match}
-    >
-      {children}
-    </TabButton>
+    <li className="nav-item">
+      <Link
+        to={to}
+        className={`nav-link ${match ? "active" : ""}`}
+        style={{ cursor: "pointer", fontSize: "16px", color: "#333" }}
+      >
+        {children}
+      </Link>
+    </li>
   )
 }
 
-export default function Tabs({ movies, tvShows }) {
+export default function Tabs({ toggleSidebar, isSidebarOpen }) {
   const navigate = useNavigate()
   const { language, toggleLanguage } = useLanguage()
 
-  //Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
+  // Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
   const tabs = [
     { path: "/movies", label: "Фильмы" },
     { path: "/tv-shows", label: "Сериалы" },
@@ -110,21 +40,56 @@ export default function Tabs({ movies, tvShows }) {
   }
 
   return (
-    <TabsWrapper>
-      <BackButton onClick={handleHomeClick}>На главную</BackButton>
-      <LanguageButton onClick={handleLanguageChange}>
-        {language === "ru" ? "Switch to English" : "Переключить на русский"}
-      </LanguageButton>
-      <TabsContainer>
-        <TabList>
-          {/* Используем компонент Tab для определения активной вкладки. */}
-          {tabs.map((tab) => (
-            <TabItem key={tab.path}>
-              <Tab to={tab.path}>{tab.label}</Tab>
-            </TabItem>
-          ))}
-        </TabList>
-      </TabsContainer>
-    </TabsWrapper>
+    <div className="container mt-5">
+      <div className="d-flex justify-content-end mb-3">
+        <button
+          className="btn btn-primary me-2"
+          onClick={handleHomeClick}
+          style={{
+            fontSize: "16px",
+            backgroundColor: "#007bff",
+            border: "none",
+          }}
+        >
+          На главную
+        </button>
+        <button
+          className="btn btn-primary me-2"
+          onClick={toggleSidebar}
+          style={{
+            fontSize: "16px",
+            backgroundColor: "#007bff",
+            border: "none",
+          }}
+        >
+          {isSidebarOpen ? "Скрыть меню" : "Показать меню"}
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={handleLanguageChange}
+          style={{
+            fontSize: "16px",
+            backgroundColor: "#007bff",
+            border: "none",
+          }}
+        >
+          {language === "ru" ? "Switch to English" : "Переключить на русский"}
+        </button>
+      </div>
+      <ul
+        className="nav nav-tabs"
+        style={{ borderBottom: "2px solid #e0e0e0" }}
+      >
+        {/* Используем компонент Tab для определения активной вкладки. */}
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.path}
+            to={tab.path}
+          >
+            {tab.label}
+          </Tab>
+        ))}
+      </ul>
+    </div>
   )
 }

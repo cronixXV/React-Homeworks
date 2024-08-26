@@ -1,41 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import getRandomMovie from "../Helpers/getRandomMovie"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const RandomMovieContainer = styled.div`
-  margin: 20px;
-`
-
-const RandomMovieTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`
-
-const RandomMovieOverview = styled.p`
-  font-size: 16px;
-  margin-bottom: 10px;
-`
-
-const RandomMovieReleaseDate = styled.p`
-  font-size: 14px;
-  color: #666;
-`
-
-const RandomMovieButton = styled.button`
-  background-color: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-
-  &:hover {
-    background-color: #333;
-  }
-`
 
 export default function RandomMovie() {
   const { language } = useLanguage()
@@ -52,33 +18,48 @@ export default function RandomMovie() {
   }, [moviesList])
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return <div className="text-center mt-5">Загрузка...</div>
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return <div className="text-center mt-5">Ошибка: {error}</div>
   }
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
-    return <div>Нет данных для отображения</div>
+    return <div className="text-center mt-5">Нет данных для отображения</div>
   }
 
   if (!randomMovie) {
-    return <div>Загрузка...</div>
+    return <div className="text-center mt-5">Загрузка...</div>
   }
 
   return (
-    <RandomMovieContainer>
-      <RandomMovieTitle>{randomMovie.title}</RandomMovieTitle>
-      <RandomMovieOverview>{randomMovie.overview}</RandomMovieOverview>
-      <RandomMovieReleaseDate>
+    <div className="container mt-5">
+      <h1
+        className="mb-4"
+        style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}
+      >
+        {randomMovie.title}
+      </h1>
+      <p
+        className="mb-3"
+        style={{ fontSize: "16px" }}
+      >
+        {randomMovie.overview}
+      </p>
+      <p
+        className="mb-4"
+        style={{ fontSize: "14px", color: "#666" }}
+      >
         Дата выхода: {randomMovie.release_date}
-      </RandomMovieReleaseDate>
-      <RandomMovieButton
+      </p>
+      <button
+        className="btn btn-dark"
+        style={{ fontSize: "16px", marginTop: "20px" }}
         onClick={() => setRandomMovie(getRandomMovie(moviesList))}
       >
         Показать другой случайный фильм
-      </RandomMovieButton>
-    </RandomMovieContainer>
+      </button>
+    </div>
   )
 }

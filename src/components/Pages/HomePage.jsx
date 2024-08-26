@@ -1,14 +1,18 @@
 import React from "react"
-import styled from "styled-components"
-
-const Main = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
-  font-size: 24px;
-  color: #333;
-`
 
 export default function HomePage() {
-  return <Main>Главная страница</Main>
+  return (
+    <div
+      className="container mt-5 text-center"
+      style={{ color: "#333" }}
+    >
+      <h1
+        style={{
+          fontSize: "24px",
+        }}
+      >
+        Главная страница
+      </h1>
+    </div>
+  )
 }

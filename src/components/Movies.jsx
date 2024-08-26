@@ -1,36 +1,29 @@
 import React from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import MovieContainer from "./MovieContainer.jsx"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 
-const MoviesContainer = styled.div`
-  margin: 20px;
-`
-
-const MoviesTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`
-
-const Movies = () => {
+export default function Movies() {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return <div className="text-center mt-5">Загрузка...</div>
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return <div className="text-center mt-5">Ошибка: {error}</div>
   }
 
   return (
-    <MoviesContainer>
-      <MoviesTitle>Популярные фильмы</MoviesTitle>
+    <div className="container mt-5">
+      <h1
+        className="mb-4"
+        style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}
+      >
+        Популярные фильмы
+      </h1>
       <MovieContainer movies={moviesList} />
-    </MoviesContainer>
+    </div>
   )
 }
-
-export default Movies

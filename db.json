@@ -11,6 +11,96 @@
       "message": "Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.",
       "stack": "\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
       "data": "2024-08-23T18:06:15.232Z"
+    },
+    {
+      "id": "01d0",
+      "message": "isSidebarOpen is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:19:81\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:50:22.824Z"
+    },
+    {
+      "id": "eddb",
+      "message": "Sidebar is not defined",
+      "stack": "\nAppWithLanguageProvider@webpack-internal:///./src/App.jsx:54:66\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:51:07.394Z"
+    },
+    {
+      "id": "53e9",
+      "message": "Sidebar is not defined",
+      "stack": "\nAppWithLanguageProvider@webpack-internal:///./src/App.jsx:54:66\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:51:19.954Z"
+    },
+    {
+      "id": "4506",
+      "message": "useMatch() may be used only in the context of a <Router> component.",
+      "stack": "\nSidebar@webpack-internal:///./src/components/Sidebar.jsx:16:16\ndiv\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider@webpack-internal:///./src/App.jsx:56:66\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:52:10.354Z"
+    },
+    {
+      "id": "3ee8",
+      "message": "isSidebarOpen is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:27:81\ndiv\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider@webpack-internal:///./src/App.jsx:56:66\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:52:10.355Z"
+    },
+    {
+      "id": "bb95",
+      "message": "isSidebarOpen is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:19:81\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T09:52:21.951Z"
+    },
+    {
+      "id": "44e0",
+      "message": "getFontSize is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:19:81\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T11:16:34.710Z"
+    },
+    {
+      "id": "d8c8",
+      "message": "getFontSize is not defined",
+      "stack": "\n    at App (webpack-internal:///./src/App.jsx:19:81)\n    at LanguageProvider (webpack-internal:///./src/Helpers/LanguageContext.jsx:19:23)\n    at AppWithLanguageProvider\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-26T11:16:34.737Z"
+    },
+    {
+      "id": "0836",
+      "message": "isMobile is not defined",
+      "stack": "\n    at App (webpack-internal:///./src/App.jsx:22:16)\n    at LanguageProvider (webpack-internal:///./src/Helpers/LanguageContext.jsx:19:23)\n    at AppWithLanguageProvider\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-26T11:19:37.201Z"
+    },
+    {
+      "id": "9996",
+      "message": "isMobile is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:22:7\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T11:19:37.740Z"
+    },
+    {
+      "id": "1f53",
+      "message": "isMobile is not defined",
+      "stack": "\n    at App (webpack-internal:///./src/App.jsx:21:16)\n    at LanguageProvider (webpack-internal:///./src/Helpers/LanguageContext.jsx:19:23)\n    at AppWithLanguageProvider\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-26T11:19:40.135Z"
+    },
+    {
+      "id": "55e6",
+      "message": "isMobile is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:21:7\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T11:19:40.398Z"
+    },
+    {
+      "id": "7df6",
+      "message": "isMobile is not defined",
+      "stack": "\n    at App (webpack-internal:///./src/App.jsx:21:16)\n    at LanguageProvider (webpack-internal:///./src/Helpers/LanguageContext.jsx:19:23)\n    at AppWithLanguageProvider\n    at Provider (webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1053:3)\n    at ErrorBoundary (webpack-internal:///./src/components/ErrorBoundary.jsx:30:5)",
+      "data": "2024-08-26T11:19:49.492Z"
+    },
+    {
+      "id": "66ba",
+      "message": "isMobile is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:21:7\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T11:19:49.652Z"
+    },
+    {
+      "id": "f20f",
+      "message": "isMobile is not defined",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:21:7\nLanguageProvider@webpack-internal:///./src/Helpers/LanguageContext.jsx:19:18\nAppWithLanguageProvider\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-26T11:19:59.306Z"
     }
   ]
 }

@@ -4,6 +4,7 @@ import { Provider } from "react-redux"
 import store from "./store.js"
 import App from "./App.jsx"
 import ErrorBoundary from "./components/ErrorBoundary.jsx"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
