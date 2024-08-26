@@ -1,35 +1,44 @@
 import React from "react"
 import { useFetchTVShows } from "./Hooks/useFetchTVShows.js"
 import MovieContainer from "./MovieContainer.jsx"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const TVShowsContainer = styled.div`
-  margin: 20px;
-`
-
-const TVShowsTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`
+import { Container, Spinner, Alert } from "react-bootstrap"
 
 const TVShows = () => {
   const { language } = useLanguage()
   const { tvShowsList, status, error } = useFetchTVShows(language)
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return (
+      <Container className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner
+          animation="border"
+          role="status"
+        >
+          <span className="visually-hidden">Загрузка...</span>
+        </Spinner>
+      </Container>
+    )
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return (
+      <Container className="py-5">
+        <Alert variant="danger">Ошибка: {error}</Alert>
+      </Container>
+    )
   }
 
   return (
-    <TVShowsContainer>
-      <TVShowsTitle>Популярные сериалы</TVShowsTitle>
+    <Container className="py-4">
+      <h1
+        className="mb-4"
+        style={{ fontSize: "24px" }}
+      >
+        Популярные сериалы
+      </h1>
       <MovieContainer movies={tvShowsList} />
-    </TVShowsContainer>
+    </Container>
   )
 }
 

@@ -1,41 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import getRandomMovie from "../Helpers/getRandomMovie"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const RandomMovieContainer = styled.div`
-  margin: 20px;
-`
-
-const RandomMovieTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`
-
-const RandomMovieOverview = styled.p`
-  font-size: 16px;
-  margin-bottom: 10px;
-`
-
-const RandomMovieReleaseDate = styled.p`
-  font-size: 14px;
-  color: #666;
-`
-
-const RandomMovieButton = styled.button`
-  background-color: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-
-  &:hover {
-    background-color: #333;
-  }
-`
+import { Container, Button } from "react-bootstrap"
+import moment from "moment"
 
 export default function RandomMovie() {
   const { language } = useLanguage()
@@ -52,33 +20,35 @@ export default function RandomMovie() {
   }, [moviesList])
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return <Container>Загрузка...</Container>
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return <Container>Ошибка: {error}</Container>
   }
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
-    return <div>Нет данных для отображения</div>
+    return <Container>Нет данных для отображения</Container>
   }
 
   if (!randomMovie) {
-    return <div>Загрузка...</div>
+    return <Container>Загрузка...</Container>
   }
 
   return (
-    <RandomMovieContainer>
-      <RandomMovieTitle>{randomMovie.title}</RandomMovieTitle>
-      <RandomMovieOverview>{randomMovie.overview}</RandomMovieOverview>
-      <RandomMovieReleaseDate>
-        Дата выхода: {randomMovie.release_date}
-      </RandomMovieReleaseDate>
-      <RandomMovieButton
+    <Container className="py-4">
+      <h1 className="display-4 mb-3 fs-2">{randomMovie.title}</h1>
+      <p className="lead mb-3">{randomMovie.overview}</p>
+      <p className="text-muted">
+        Дата выхода: {moment(randomMovie.release_date).format("DD.MM.YYYY")}
+      </p>
+      <Button
+        variant="dark"
+        className="mt-4"
         onClick={() => setRandomMovie(getRandomMovie(moviesList))}
       >
         Показать другой случайный фильм
-      </RandomMovieButton>
-    </RandomMovieContainer>
+      </Button>
+    </Container>
   )
 }

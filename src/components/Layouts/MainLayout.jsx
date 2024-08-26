@@ -1,22 +1,53 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
-import Tabs from "../Tabs.jsx"
-import styled from "styled-components"
+import { Container, Row, Col } from "react-bootstrap"
+import Sidebar from "../Sidebar.jsx"
 
-const LayoutWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`
-
-export default function MainLayout({ movies, tvShows }) {
+export default function MainLayout() {
   return (
-    <LayoutWrapper>
-      <Tabs
-        movies={movies}
-        tvShows={tvShows}
-      />
-      <Outlet />
-    </LayoutWrapper>
+    <div>
+      <main>
+        <Container fluid>
+          <Row>
+            <Col
+              sm="12"
+              md="4"
+              lg="3"
+              xxl="2"
+              style={{ paddingLeft: 0 }}
+            >
+              <Sidebar />
+            </Col>
+            <Col
+              sm="12"
+              md="8"
+              lg="9"
+              xxl="10"
+            >
+              <div className="p-3">
+                <Outlet />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </main>
+
+      <footer
+        className="pt-3"
+        style={{
+          backgroundColor: "#e3e3e3",
+        }}
+      >
+        <Container fluid>
+          <Row>
+            <Col>
+              <p className="text-center">
+                &copy; 2024 Сервис фильмов и сериалов
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </footer>
+    </div>
   )
 }
