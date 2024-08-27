@@ -1,3 +1,5 @@
+// src/components/Movies.jsx
+
 import React, { useState, useEffect } from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import { useFetchSearchMovie } from "./Hooks/useFetchSearchMovie.js"
@@ -5,13 +7,16 @@ import MovieContainer from "./MovieContainer.jsx"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import { Container, Spinner, Alert } from "react-bootstrap"
 import SearchMovie from "./SearchMovie.jsx"
+import { useDebounce } from "./Hooks/useDebounce.js"
 
 const Movies = () => {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
   const [searchMovie, setSearchMovie] = useState("")
-  const [debounceSearchMovie, setDebounceSearchMovie] = useState("")
-  const [timer, setTimer] = useState(null)
+
+  // Используем хук useDebounce для дебаунсинга значения searchMovie
+  const debounceSearchMovie = useDebounce(searchMovie, 2000)
+
   // Хук для получения данных по поисковому запросу
   const {
     searchMovieList,
@@ -20,27 +25,6 @@ const Movies = () => {
   } = useFetchSearchMovie(debounceSearchMovie)
 
   const [filteredMovies, setFilteredMovies] = useState([])
-
-  // Реализация дебаунсинга
-  useEffect(() => {
-    // Если таймер уже существует, очищаем его
-    if (timer) {
-      clearTimeout(timer)
-    }
-
-    // Устанавливаем новый таймер на 2 секунды
-    const newTimer = setTimeout(() => {
-      setDebounceSearchMovie(searchMovie) // Обновляем поисковый запрос с задержкой
-    }, 2000)
-
-    // Сохраняем таймер для последующей очистки
-    setTimer(newTimer)
-
-    // Очищаем таймер при размонтировании компонента или изменении зависимости
-    return () => {
-      clearTimeout(newTimer)
-    }
-  }, [searchMovie]) // Запуск дебаунсинга при изменении `searchMovie`
 
   useEffect(() => {
     setFilteredMovies(moviesList)

@@ -1,12 +1,9 @@
 import React, { useState } from "react"
-import { Container, Form, Button } from "react-bootstrap"
+import { Container, Button } from "react-bootstrap"
+import { DebouncedInput } from "./DebouncedInput.jsx"
 
 export default function SearchMovie({ onSearch, onReset }) {
   const [movie, setMovie] = useState("")
-
-  const handleChange = (e) => {
-    setMovie(e.target.value)
-  }
 
   const handleSearch = () => {
     onSearch(movie)
@@ -25,32 +22,31 @@ export default function SearchMovie({ onSearch, onReset }) {
       >
         Поиск фильмов по названию
       </h1>
-      <Form>
-        <Form.Group controlId="formSearch">
-          <Form.Label>Введите название фильма</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Название фильма"
-            value={movie}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Button
-          className="mt-3"
-          variant="primary"
-          onClick={handleSearch}
-        >
-          Поиск
-        </Button>
-        <Button
-          className="mt-3"
-          variant="secondary"
-          onClick={handleReset}
-          style={{ marginLeft: "10px" }}
-        >
-          Сбросить поиск
-        </Button>
-      </Form>
+      <DebouncedInput
+        type="text"
+        placeholder="Название фильма"
+        value={movie}
+        onChange={(e) => {
+          setMovie(e) // Обновляем состояние
+          onSearch(e) // Выполняем поиск
+        }}
+        className="form-control"
+      />
+      <Button
+        className="mt-3"
+        variant="primary"
+        onClick={handleSearch}
+      >
+        Поиск
+      </Button>
+      <Button
+        className="mt-3"
+        variant="secondary"
+        onClick={handleReset}
+        style={{ marginLeft: "10px" }}
+      >
+        Сбросить поиск
+      </Button>
     </Container>
   )
 }
