@@ -17,18 +17,18 @@ const Tab = ({ to, children }) => {
   )
 }
 
-export default function Tabs({ movies, tvShows }) {
+// Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
+const tabs = [
+  { path: "/movies", label: "Фильмы" },
+  { path: "/tv-shows", label: "Сериалы" },
+  { path: "/random-movie", label: "Случайный фильм" },
+  { path: "/best-movies", label: "Лучшие фильмы" },
+  { path: "/feedback", label: "Обратная связь" },
+]
+
+export default function Tabs() {
   const navigate = useNavigate()
   const { language, toggleLanguage } = useLanguage()
-
-  // Создаем массив tabs, который содержит информацию о каждой вкладке (путь и метка).
-  const tabs = [
-    { path: "/movies", label: "Фильмы" },
-    { path: "/tv-shows", label: "Сериалы" },
-    { path: "/random-movie", label: "Случайный фильм" },
-    { path: "/best-movies", label: "Лучшие фильмы" },
-    { path: "/feedback", label: "Обратная связь" },
-  ]
 
   const handleLanguageChange = () => {
     toggleLanguage()

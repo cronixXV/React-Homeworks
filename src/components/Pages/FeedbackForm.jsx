@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap"
+import { Form, Button, Container } from "react-bootstrap"
 import useInput from "../Hooks/useInput"
 
 const options = [

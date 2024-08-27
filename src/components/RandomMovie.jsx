@@ -19,7 +19,7 @@ export default function RandomMovie() {
     }
   }, [moviesList])
 
-  if (status === "loading") {
+  if (status === "loading" || !randomMovie) {
     return <Container>Загрузка...</Container>
   }
 
@@ -29,10 +29,6 @@ export default function RandomMovie() {
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
     return <Container>Нет данных для отображения</Container>
-  }
-
-  if (!randomMovie) {
-    return <Container>Загрузка...</Container>
   }
 
   return (

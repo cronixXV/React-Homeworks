@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap"
 
 export default function NotFoundPage() {
-  const { id } = useParams()
   const navigate = useNavigate()
 
   const [isNavigate, setIsNavigate] = useState(false)

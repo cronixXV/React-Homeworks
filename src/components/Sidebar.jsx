@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import { Link } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
+import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
 const Divider = styled.hr`
@@ -13,6 +14,7 @@ const Divider = styled.hr`
 
 export default function Sidebar() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
+  const { language, toggleLanguage } = useLanguage()
   return (
     <Navbar
       className="flex-column flex-shrink-0 p-3"
@@ -109,11 +111,7 @@ export default function Sidebar() {
       <Divider />
 
       <NavDropdown
-        title={
-          <>
-            <strong>Гость</strong>
-          </>
-        }
+        title={<strong>Гость</strong>}
         className="text-light"
         drop="up"
         menuVariant="dark"
@@ -126,6 +124,15 @@ export default function Sidebar() {
           to="/#"
         >
           Мой профиль
+        </NavDropdown.Item>
+
+        <NavDropdown.Item
+          as={Link}
+          to="#"
+          onClick={toggleLanguage}
+          className="text-light px-3"
+        >
+          {language === "ru" ? "Переключить на English" : "Switch to Russian"}
         </NavDropdown.Item>
         <NavDropdown.Item
           as={Link}

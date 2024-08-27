@@ -3,18 +3,20 @@ import { RouterProvider } from "react-router-dom"
 import createRouter from "./components/Routers/Routes.jsx"
 import { LanguageProvider } from "./Helpers/LanguageContext.jsx"
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <RouterProvider router={createRouter()} />
-    </div>
+    <LanguageProvider>
+      <RouterProvider router={createRouter()}>
+        <App />
+      </RouterProvider>
+    </LanguageProvider>
   )
 }
 
-const AppWithLanguageProvider = () => (
-  <LanguageProvider>
-    <App />
-  </LanguageProvider>
-)
+// const AppWithLanguageProvider = () => (
+//   <LanguageProvider>
+//     <App />
+//   </LanguageProvider>
+// )
 
-export default AppWithLanguageProvider
+// export default AppWithLanguageProvider
