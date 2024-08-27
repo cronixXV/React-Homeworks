@@ -1,67 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
-import styled from "styled-components"
-import { Form } from "react-router-dom"
+import { Form, Button, Container } from "react-bootstrap"
 import useInput from "../Hooks/useInput"
-
-const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 10px;
-  font-size: 20px;
-`
-
-const Button = styled.button`
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-
-const Textarea = styled.textarea`
-  width: 96%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  min-height: 100px;
-  resize: vertical;
-`
-
-const Input = styled.input`
-  width: 96%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`
-
-const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`
-
-const ErrorMessage = styled.p`
-  color: red;
-  margin-top: 5px;
-`
 
 const options = [
   { value: "", label: "Выберите оценку" },
@@ -82,9 +21,6 @@ export default function FeedbackForm() {
   const comment = useInput("", "comment", true, {
     comment: 'Поле "Ваша рецензия" обязательно для заполнения',
   })
-  // const [name, setName] = useState("")
-  // const [rating, setRating] = useState("")
-  // const [comment, setComment] = useState("")
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const nameRef = useRef(null)
@@ -123,7 +59,7 @@ export default function FeedbackForm() {
 
   if (submitted) {
     return (
-      <Container>
+      <Container className="mt-5">
         <h2>Спасибо за ваш отзыв</h2>
         <p>Имя: {name.value}</p>
         <p>Оценка: {rating.value}</p>
@@ -133,42 +69,29 @@ export default function FeedbackForm() {
   }
 
   return (
-    <Container>
+    <Container className="mt-5">
       <h2>Оставьте свою оценку фильму или сериалу</h2>
-      <Form
-        action="/feedback"
-        method="post"
-        // onSubmit={(e) => {
-        //   if (!confirm("Вы уверены?")) {
-        //     e.preventDefault()
-        //   }
-        // }}
-        onSubmit={handleOnSubmit}
-      >
-        <div>
-          <Label htmlFor={name.id}>Ваше имя</Label>
-          <Input
+      <Form onSubmit={handleOnSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor={name.id}>Ваше имя</Form.Label>
+          <Form.Control
+            type="text"
             {...name}
             ref={nameRef}
+            isInvalid={!!errors.name}
           />
-          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+          <Form.Control.Feedback type="invalid">
+            {errors.name}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-          {/* <Input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            ref={nameRef}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {error.name && (
-            <ErrorMessage style={{ color: "red" }}>{error.name}</ErrorMessage>
-          )} */}
-        </div>
-
-        <div>
-          <Label htmlFor={rating.id}>Ваша оценка</Label>
-          <Select {...rating}>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor={rating.id}>Ваша оценка</Form.Label>
+          <Form.Control
+            as="select"
+            {...rating}
+            isInvalid={!!errors.rating}
+          >
             {options.map((option) => (
               <option
                 key={option.value}
@@ -177,52 +100,32 @@ export default function FeedbackForm() {
                 {option.label}
               </option>
             ))}
-          </Select>
-          {errors.rating && <ErrorMessage>{errors.rating}</ErrorMessage>}
+          </Form.Control>
+          <Form.Control.Feedback type="invalid">
+            {errors.rating}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-          {/* <Select
-            id="rating"
-            name="rating"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
-          >
-            <option value="">Выберите оценку</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </Select>
-          {error.rating && (
-            <ErrorMessage style={{ color: "red" }}>{error.rating}</ErrorMessage>
-          )} */}
-        </div>
-
-        <div>
-          <Label htmlFor={comment.id}>Ваша рецензия</Label>
-          <Textarea {...comment} />
-          {errors.comment && <ErrorMessage>{errors.comment}</ErrorMessage>}
-          {/* <Textarea
-            id="comment"
-            name="comment"
-            value={comment}
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor={comment.id}>Ваша рецензия</Form.Label>
+          <Form.Control
+            as="textarea"
             rows={3}
-            onChange={(e) => setComment(e.target.value)}
+            {...comment}
+            isInvalid={!!errors.comment}
           />
-          {error.comment && (
-            <ErrorMessage style={{ color: "red" }}>
-              {error.comment}
-            </ErrorMessage>
-          )} */}
-        </div>
+          <Form.Control.Feedback type="invalid">
+            {errors.comment}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button type="submit">Отправить</Button>
+        <div className="text-center">
+          <Button
+            variant="primary"
+            type="submit"
+          >
+            Отправить
+          </Button>
         </div>
       </Form>
     </Container>

@@ -1,35 +1,44 @@
 import React from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import MovieContainer from "./MovieContainer.jsx"
-import styled from "styled-components"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
-
-const MoviesContainer = styled.div`
-  margin: 20px;
-`
-
-const MoviesTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`
+import { Container, Spinner, Alert } from "react-bootstrap"
 
 const Movies = () => {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
 
   if (status === "loading") {
-    return <div>Загрузка...</div>
+    return (
+      <Container className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner
+          animation="border"
+          role="status"
+        >
+          <span className="visually-hidden">Загрузка...</span>
+        </Spinner>
+      </Container>
+    )
   }
 
   if (status === "failed") {
-    return <div>Ошибка: {error}</div>
+    return (
+      <Container className="py-5">
+        <Alert variant="danger">Ошибка: {error}</Alert>
+      </Container>
+    )
   }
 
   return (
-    <MoviesContainer>
-      <MoviesTitle>Популярные фильмы</MoviesTitle>
+    <Container className="py-4">
+      <h1
+        className="mb-4"
+        style={{ fontSize: "24px" }}
+      >
+        Популярные фильмы
+      </h1>
       <MovieContainer movies={moviesList} />
-    </MoviesContainer>
+    </Container>
   )
 }
 

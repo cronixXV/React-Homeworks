@@ -1,37 +1,15 @@
 import React, { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import styled from "styled-components"
-
-const NotFoundContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-`
-
-const NotFoundTitle = styled.h1`
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #333;
-`
-
-const NotFoundMessage = styled.p`
-  font-size: 18px;
-  color: #666;
-`
+import { useNavigate } from "react-router-dom"
+import { Container, Row, Col } from "react-bootstrap"
 
 export default function NotFoundPage() {
-  const { id } = useParams()
   const navigate = useNavigate()
 
   const [isNavigate, setIsNavigate] = useState(false)
 
-  let timer
   useEffect(() => {
     setIsNavigate(true)
-    timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       navigate("/")
     }, 5000)
 
@@ -41,16 +19,23 @@ export default function NotFoundPage() {
   }, [navigate])
 
   return (
-    <NotFoundContainer>
-      <NotFoundTitle>404 - Страница не найдена</NotFoundTitle>
-      <NotFoundMessage>
-        Извините, но страница, которую вы ищете, не существует.
-      </NotFoundMessage>
-      {isNavigate && (
-        <NotFoundMessage>
-          Вы будете перенаправлены на главную страницу через 5 секунд.
-        </NotFoundMessage>
-      )}
-    </NotFoundContainer>
+    <Container
+      className="d-flex flex-column justify-content-center align-items-center"
+      style={{ height: "100vh", textAlign: "center" }}
+    >
+      <Row>
+        <Col>
+          <h1 className="display-4 mb-3">404 - Страница не найдена</h1>
+          <p className="lead text-muted">
+            Извините, но страница, которую вы ищете, не существует.
+          </p>
+          {isNavigate && (
+            <p className="text-muted">
+              Вы будете перенаправлены на главную страницу через 5 секунд.
+            </p>
+          )}
+        </Col>
+      </Row>
+    </Container>
   )
 }

@@ -1,13 +1,6 @@
 import React from "react"
 import MovieItem from "./MovieItem.jsx"
-import styled from "styled-components"
-
-const MovieContainerWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 20px;
-`
+import { Container, Row, Col } from "react-bootstrap"
 
 export default function MovieContainer({ movies }) {
   if (!movies || movies.length === 0) {
@@ -15,13 +8,20 @@ export default function MovieContainer({ movies }) {
   }
 
   return (
-    <MovieContainerWrapper>
-      {movies.map((movie) => (
-        <MovieItem
-          key={movie.id}
-          movie={movie}
-        />
-      ))}
-    </MovieContainerWrapper>
+    <Container>
+      <Row className="g-4">
+        {movies.map((movie) => (
+          <Col
+            key={movie.id}
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+          >
+            <MovieItem movie={movie} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   )
 }
