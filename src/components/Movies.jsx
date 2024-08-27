@@ -1,14 +1,51 @@
-import React from "react"
+// src/components/Movies.jsx
+
+import React, { useState, useEffect } from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
+import { useFetchSearchMovie } from "./Hooks/useFetchSearchMovie.js"
 import MovieContainer from "./MovieContainer.jsx"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import { Container, Spinner, Alert } from "react-bootstrap"
+import SearchMovie from "./SearchMovie.jsx"
+import { useDebounce } from "./Hooks/useDebounce.js"
 
 const Movies = () => {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
+  const [searchMovie, setSearchMovie] = useState("")
 
-  if (status === "loading") {
+  // Используем хук useDebounce для дебаунсинга значения searchMovie
+  const debounceSearchMovie = useDebounce(searchMovie, 2000)
+
+  // Хук для получения данных по поисковому запросу
+  const {
+    searchMovieList,
+    status: searchStatus,
+    error: searchError,
+  } = useFetchSearchMovie(debounceSearchMovie)
+
+  const [filteredMovies, setFilteredMovies] = useState([])
+
+  useEffect(() => {
+    setFilteredMovies(moviesList)
+  }, [moviesList])
+
+  const handleSearch = (movie) => {
+    setSearchMovie(movie)
+  }
+
+  const handleReset = () => {
+    setSearchMovie("")
+    setFilteredMovies(moviesList)
+  }
+
+  useEffect(() => {
+    if (searchStatus === "succeeded") {
+      setFilteredMovies(searchMovieList)
+    }
+  }, [searchStatus, searchMovieList])
+
+  if (status === "loading" || searchStatus === "loading") {
     return (
       <Container className="d-flex justify-content-center align-items-center vh-100">
         <Spinner
@@ -29,6 +66,14 @@ const Movies = () => {
     )
   }
 
+  if (searchStatus === "failed") {
+    return (
+      <Container className="py-5">
+        <Alert variant="danger">Ошибка: {searchError}</Alert>
+      </Container>
+    )
+  }
+
   return (
     <Container className="py-4">
       <h1
@@ -37,7 +82,11 @@ const Movies = () => {
       >
         Популярные фильмы
       </h1>
-      <MovieContainer movies={moviesList} />
+      <SearchMovie
+        onSearch={handleSearch}
+        onReset={handleReset}
+      />
+      <MovieContainer movies={filteredMovies} />
     </Container>
   )
 }

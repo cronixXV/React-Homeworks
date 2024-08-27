@@ -132,7 +132,7 @@ export default function Sidebar() {
           onClick={toggleLanguage}
           className="text-light px-3"
         >
-          {language === "ru" ? "Переключить на English" : "Switch to Russian"}
+          {language === "ru" ? "Switch на English" : "Переключить на русский"}
         </NavDropdown.Item>
         <NavDropdown.Item
           as={Link}
