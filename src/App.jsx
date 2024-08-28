@@ -12,11 +12,3 @@ export default function App() {
     </LanguageProvider>
   )
 }
-
-// const AppWithLanguageProvider = () => (
-//   <LanguageProvider>
-//     <App />
-//   </LanguageProvider>
-// )
-
-// export default AppWithLanguageProvider

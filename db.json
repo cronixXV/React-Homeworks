@@ -1,3 +1,25 @@
 {
-  "logs": []
+  "logs": [
+    {
+      "id": "b85d",
+      "message": "Absolute route path \"/register\" nested under path \"/auth\" is not valid. An absolute child route path must start with the combined path of all its parent routes.",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:19:89\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-28T16:34:38.683Z"
+    },
+    {
+      "id": "c98f",
+      "message": "Absolute route path \"/register\" nested under path \"/auth\" is not valid. An absolute child route path must start with the combined path of all its parent routes.",
+      "stack": "\nApp@webpack-internal:///./src/App.jsx:19:89\nProvider@webpack-internal:///./node_modules/react-redux/dist/react-redux.mjs:1052:18\nErrorBoundary@webpack-internal:///./src/components/ErrorBoundary.jsx:30:20",
+      "data": "2024-08-28T16:34:44.630Z"
+    }
+  ],
+  "users": [
+    {
+      "name": "admin",
+      "email": "test@test.ru",
+      "password": "$2a$10$IJG1S44Ls2nqEjSeFeuld.u8g8WFeh10CsASTfM1PiqyS89BYDyQ2",
+      "token": "skalfjakhfjsja1224112",
+      "id": "5a16"
+    }
+  ]
 }

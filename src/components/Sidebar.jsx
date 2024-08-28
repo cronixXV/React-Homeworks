@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import { Link } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
+import { useSelector } from "react-redux"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
@@ -13,6 +14,7 @@ const Divider = styled.hr`
 `
 
 export default function Sidebar() {
+  const { isAuthenticated, user } = useSelector((state) => state.auth)
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
   const { language, toggleLanguage } = useLanguage()
   return (
@@ -111,7 +113,11 @@ export default function Sidebar() {
       <Divider />
 
       <NavDropdown
-        title={<strong>Гость</strong>}
+        title={
+          <strong>
+            {isAuthenticated ? `Привет, ${user?.name} !` : "Гость"}
+          </strong>
+        }
         className="text-light"
         drop="up"
         menuVariant="dark"
@@ -119,34 +125,64 @@ export default function Sidebar() {
           width: "100%",
         }}
       >
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Мой профиль
-        </NavDropdown.Item>
-
-        <NavDropdown.Item
-          as={Link}
-          to="#"
-          onClick={toggleLanguage}
-          className="text-light px-3"
-        >
-          {language === "ru" ? "Switch на English" : "Переключить на русский"}
-        </NavDropdown.Item>
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Настройки
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Выход
-        </NavDropdown.Item>
+        {isAuthenticated ? (
+          <>
+            <NavDropdown.Item
+              as={Link}
+              to="/profile"
+            >
+              Мой профиль
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="#"
+              onClick={toggleLanguage}
+              className="text-light px-3"
+            >
+              {language === "ru"
+                ? "Switch на English"
+                : "Переключить на русский"}
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="/settings"
+            >
+              Настройки
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item
+              as={Link}
+              to="/auth/logout"
+            >
+              Выход
+            </NavDropdown.Item>
+          </>
+        ) : (
+          <>
+            <NavDropdown.Item
+              as={Link}
+              to="/login"
+            >
+              Войти
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="#"
+              onClick={toggleLanguage}
+              className="text-light px-3"
+            >
+              {language === "ru"
+                ? "Switch на English"
+                : "Переключить на русский"}
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="/settings"
+            >
+              Настройки
+            </NavDropdown.Item>
+          </>
+        )}
       </NavDropdown>
     </Navbar>
   )
