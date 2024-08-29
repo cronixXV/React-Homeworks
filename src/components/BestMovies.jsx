@@ -3,11 +3,13 @@ import { Card, Spinner } from "react-bootstrap"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import moment from "moment"
+import { useTranslation } from "react-i18next"
 
 export default function BestMovies() {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
   const [currentMovie, setCurrentMovie] = useState(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (Array.isArray(moviesList) && moviesList.length > 0) {
@@ -27,17 +29,21 @@ export default function BestMovies() {
           animation="border"
           variant="primary"
         />
-        <p>Загрузка...</p>
+        <p>{t("bestMovies.loading")}</p>
       </div>
     )
   }
 
   if (status === "failed") {
-    return <div className="text-center mt-5">Ошибка: {error}</div>
+    return (
+      <div className="text-center mt-5">
+        {t("bestMovies.error")}: {error}
+      </div>
+    )
   }
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
-    return <div className="text-center mt-5">Нет данных для отображения</div>
+    return <div className="text-center mt-5">{t("bestMovies.noData")}</div>
   }
 
   if (!currentMovie) {
@@ -47,7 +53,7 @@ export default function BestMovies() {
           animation="border"
           variant="primary"
         />
-        <p>Загрузка...</p>
+        <p>{t("bestMovies.loading")}</p>
       </div>
     )
   }
@@ -58,10 +64,11 @@ export default function BestMovies() {
         <Card.Body>
           <Card.Title>{currentMovie.title || currentMovie.name}</Card.Title>
           <Card.Text>
-            <strong>Рейтинг:</strong> {currentMovie.popularity}
+            <strong>{t("bestMovies.rating")}:</strong> {currentMovie.popularity}
           </Card.Text>
           <Card.Text>
-            <strong>Количество отзывов:</strong> {currentMovie.vote_count}
+            <strong>{t("bestMovies.reviewCount")}:</strong>{" "}
+            {currentMovie.vote_count}
           </Card.Text>
           <Card.Text>
             {currentMovie.overview.length > 100
@@ -69,7 +76,7 @@ export default function BestMovies() {
               : currentMovie.overview}
           </Card.Text>
           <Card.Text>
-            <strong>Дата выхода:</strong>{" "}
+            <strong>{t("bestMovies.releaseDate")}:</strong>{" "}
             {moment(
               currentMovie.release_date || currentMovie.first_air_date
             ).format("DD.MM.YYYY")}

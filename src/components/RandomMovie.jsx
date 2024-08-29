@@ -4,11 +4,13 @@ import getRandomMovie from "../Helpers/getRandomMovie"
 import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import { Container, Button } from "react-bootstrap"
 import moment from "moment"
+import { useTranslation } from "react-i18next"
 
 export default function RandomMovie() {
   const { language } = useLanguage()
   const { moviesList, status, error } = useFetchMovies(language)
   const [randomMovie, setRandomMovie] = useState(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (Array.isArray(moviesList) && moviesList.length > 0) {
@@ -20,15 +22,19 @@ export default function RandomMovie() {
   }, [moviesList])
 
   if (status === "loading" || !randomMovie) {
-    return <Container>Загрузка...</Container>
+    return <Container>{t("randomMovie.loading")}</Container>
   }
 
   if (status === "failed") {
-    return <Container>Ошибка: {error}</Container>
+    return (
+      <Container>
+        {t("randomMovie.error")}: {error}
+      </Container>
+    )
   }
 
   if (!Array.isArray(moviesList) || moviesList.length === 0) {
-    return <Container>Нет данных для отображения</Container>
+    return <Container>{t("randomMovie.no_data")}</Container>
   }
 
   return (
@@ -41,14 +47,15 @@ export default function RandomMovie() {
       </h1>
       <p className="lead mb-3">{randomMovie.overview}</p>
       <p className="text-muted">
-        Дата выхода: {moment(randomMovie.release_date).format("DD.MM.YYYY")}
+        {t("randomMovie.release_date")}:{" "}
+        {moment(randomMovie.release_date).format("DD.MM.YYYY")}
       </p>
       <Button
         variant="dark"
         className="mt-4"
         onClick={() => setRandomMovie(getRandomMovie(moviesList))}
       >
-        Показать другой случайный фильм
+        {t("randomMovie.show_another_random_movie")}
       </Button>
     </Container>
   )

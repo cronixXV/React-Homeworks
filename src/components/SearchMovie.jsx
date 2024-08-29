@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import { Container, Button } from "react-bootstrap"
 import { DebouncedInput } from "./DebouncedInput.jsx"
+import { useTranslation } from "react-i18next"
 
 export default function SearchMovie({ onSearch, onReset }) {
   const [movie, setMovie] = useState("")
+  const { t } = useTranslation()
 
   const handleSearch = () => {
     onSearch(movie)
@@ -20,11 +22,11 @@ export default function SearchMovie({ onSearch, onReset }) {
         className="mb-4"
         style={{ fontSize: "22px" }}
       >
-        Поиск фильмов по названию
+        {t("searchMovie.search_movies_by_title")}
       </h1>
       <DebouncedInput
         type="text"
-        placeholder="Название фильма"
+        placeholder={t("searchMovie.movie_title")}
         value={movie}
         onChange={(e) => {
           setMovie(e) // Обновляем состояние
@@ -37,7 +39,7 @@ export default function SearchMovie({ onSearch, onReset }) {
         variant="primary"
         onClick={handleSearch}
       >
-        Поиск
+        {t("searchMovie.search")}
       </Button>
       <Button
         className="mt-3"
@@ -45,7 +47,7 @@ export default function SearchMovie({ onSearch, onReset }) {
         onClick={handleReset}
         style={{ marginLeft: "10px" }}
       >
-        Сбросить поиск
+        {t("searchMovie.reset_search")}
       </Button>
     </Container>
   )

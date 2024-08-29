@@ -1,5 +1,3 @@
-// src/components/Movies.jsx
-
 import React, { useState, useEffect } from "react"
 import { useFetchMovies } from "./Hooks/useFetchMovies.js"
 import { useFetchSearchMovie } from "./Hooks/useFetchSearchMovie.js"
@@ -8,6 +6,7 @@ import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import { Container, Spinner, Alert } from "react-bootstrap"
 import SearchMovie from "./SearchMovie.jsx"
 import { useDebounce } from "./Hooks/useDebounce.js"
+import { useTranslation } from "react-i18next"
 
 const Movies = () => {
   const { language } = useLanguage()
@@ -25,6 +24,7 @@ const Movies = () => {
   } = useFetchSearchMovie(debounceSearchMovie)
 
   const [filteredMovies, setFilteredMovies] = useState([])
+  const { t } = useTranslation()
 
   useEffect(() => {
     setFilteredMovies(moviesList)
@@ -52,7 +52,7 @@ const Movies = () => {
           animation="border"
           role="status"
         >
-          <span className="visually-hidden">Загрузка...</span>
+          <span className="visually-hidden">{t("movies.loading")}</span>{" "}
         </Spinner>
       </Container>
     )
@@ -61,7 +61,9 @@ const Movies = () => {
   if (status === "failed") {
     return (
       <Container className="py-5">
-        <Alert variant="danger">Ошибка: {error}</Alert>
+        <Alert variant="danger">
+          {t("movies.error")}: {error}
+        </Alert>
       </Container>
     )
   }
@@ -69,7 +71,9 @@ const Movies = () => {
   if (searchStatus === "failed") {
     return (
       <Container className="py-5">
-        <Alert variant="danger">Ошибка: {searchError}</Alert>
+        <Alert variant="danger">
+          {t("movies.error")}: {searchError}
+        </Alert>
       </Container>
     )
   }
@@ -80,7 +84,7 @@ const Movies = () => {
         className="mb-4"
         style={{ fontSize: "24px" }}
       >
-        Популярные фильмы
+        {t("movies.popular_movies")}
       </h1>
       <SearchMovie
         onSearch={handleSearch}

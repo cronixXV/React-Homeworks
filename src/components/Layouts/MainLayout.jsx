@@ -2,6 +2,7 @@ import React from "react"
 import { Outlet } from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap"
 import Sidebar from "../Sidebar.jsx"
+import LanguageSwitcher from "../LanguageSwitcher.jsx"
 
 export default function MainLayout() {
   return (
@@ -25,6 +26,7 @@ export default function MainLayout() {
               xxl="10"
             >
               <div className="p-3">
+                <LanguageSwitcher />
                 <Outlet />
               </div>
             </Col>

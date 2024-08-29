@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import { Form, Button, Container } from "react-bootstrap"
 import useInput from "../Hooks/useInput"
+import { useTranslation } from "react-i18next"
 
 const options = [
   { value: "", label: "Выберите оценку" },
@@ -12,14 +13,16 @@ const options = [
 ]
 
 export default function FeedbackForm() {
+  const { t } = useTranslation()
+
   const name = useInput("", "name", true, {
-    name: 'Поле "Ваше имя" обязательно для заполнения',
+    name: t("feedbackForm.errors.name"),
   })
   const rating = useInput("", "rating", true, {
-    rating: 'Поле "Ваша оценка" обязательно для заполнения',
+    rating: t("feedbackForm.errors.rating"),
   })
   const comment = useInput("", "comment", true, {
-    comment: 'Поле "Ваша рецензия" обязательно для заполнения',
+    comment: t("feedbackForm.errors.comment"),
   })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
@@ -34,12 +37,9 @@ export default function FeedbackForm() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
     const newErrors = {}
-    if (!name.value)
-      newErrors.name = 'Поле "Ваше имя" обязательно для заполнения'
-    if (!rating.value)
-      newErrors.rating = 'Поле "Ваша оценка" обязательно для заполнения'
-    if (!comment.value)
-      newErrors.comment = 'Поле "Ваш рецензия" обязательно для заполнения'
+    if (!name.value) newErrors.name = t("feedbackForm.errors.name")
+    if (!rating.value) newErrors.rating = t("feedbackForm.errors.rating")
+    if (!comment.value) newErrors.comment = t("feedbackForm.errors.comment")
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -60,20 +60,26 @@ export default function FeedbackForm() {
   if (submitted) {
     return (
       <Container className="mt-5">
-        <h2>Спасибо за ваш отзыв</h2>
-        <p>Имя: {name.value}</p>
-        <p>Оценка: {rating.value}</p>
-        <p>Комментарий: {comment.value}</p>
+        <h2>{t("feedbackForm.thankYou")}</h2>
+        <p>
+          {t("feedbackForm.name")}: {name.value}
+        </p>
+        <p>
+          {t("feedbackForm.rating")}: {rating.value}
+        </p>
+        <p>
+          {t("feedbackForm.comment")}: {comment.value}
+        </p>
       </Container>
     )
   }
 
   return (
     <Container className="mt-5">
-      <h2>Оставьте свою оценку фильму или сериалу</h2>
+      <h2>{t("feedbackForm.title")}</h2>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor={name.id}>Ваше имя</Form.Label>
+          <Form.Label htmlFor={name.id}>{t("feedbackForm.name")}</Form.Label>
           <Form.Control
             type="text"
             {...name}
@@ -86,7 +92,9 @@ export default function FeedbackForm() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label htmlFor={rating.id}>Ваша оценка</Form.Label>
+          <Form.Label htmlFor={rating.id}>
+            {t("feedbackForm.rating")}
+          </Form.Label>
           <Form.Control
             as="select"
             {...rating}
@@ -97,7 +105,7 @@ export default function FeedbackForm() {
                 key={option.value}
                 value={option.value}
               >
-                {option.label}
+                {t(`feedbackForm.ratingOptions.${option.value}`)}
               </option>
             ))}
           </Form.Control>
@@ -107,7 +115,9 @@ export default function FeedbackForm() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label htmlFor={comment.id}>Ваша рецензия</Form.Label>
+          <Form.Label htmlFor={comment.id}>
+            {t("feedbackForm.comment")}
+          </Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
@@ -124,7 +134,7 @@ export default function FeedbackForm() {
             variant="primary"
             type="submit"
           >
-            Отправить
+            {t("feedbackForm.submit")}
           </Button>
         </div>
       </Form>

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { login } from "../Reducers/Slices/authSlice.js"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-import { Alert } from "react-bootstrap"
+import { Button, Form, Alert } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
 
 export default function LoginForm() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { isAuthenticated, error, status } = useSelector((state) => state.auth)
@@ -30,14 +30,14 @@ export default function LoginForm() {
       style={{ maxWidth: "330px" }}
     >
       <div className="text-center">
-        <h1 className="h3 mb-4 fw-normal">Форма авторизации</h1>
+        <h1 className="h3 mb-4 fw-normal">{t("loginForm.title")}</h1>
       </div>
 
       <Form.Group className="mb-2">
         <Form.Control
           type="email"
           size="lg"
-          placeholder="Email"
+          placeholder={t("loginForm.emailPlaceholder")}
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -48,7 +48,7 @@ export default function LoginForm() {
         <Form.Control
           type="password"
           size="lg"
-          placeholder="Пароль"
+          placeholder={t("loginForm.passwordPlaceholder")}
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +63,7 @@ export default function LoginForm() {
         type="submit"
         className="w-100"
       >
-        Войти
+        {t("loginForm.submitButton")}
       </Button>
     </Form>
   )

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
 
 export default function NotFoundPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
-
   const [isNavigate, setIsNavigate] = useState(false)
 
   useEffect(() => {
@@ -25,15 +26,9 @@ export default function NotFoundPage() {
     >
       <Row>
         <Col>
-          <h1 className="display-4 mb-3">404 - Страница не найдена</h1>
-          <p className="lead text-muted">
-            Извините, но страница, которую вы ищете, не существует.
-          </p>
-          {isNavigate && (
-            <p className="text-muted">
-              Вы будете перенаправлены на главную страницу через 5 секунд.
-            </p>
-          )}
+          <h1 className="display-4 mb-3">{t("notFound.title")}</h1>
+          <p className="lead text-muted">{t("notFound.message")}</p>
+          {isNavigate && <p className="text-muted">{t("notFound.redirect")}</p>}
         </Col>
       </Row>
     </Container>

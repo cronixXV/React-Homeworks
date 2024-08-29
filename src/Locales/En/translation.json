@@ -1,0 +1,105 @@
+{
+  "tvShows": {
+    "loading": "Loading...",
+    "error": "Error",
+    "popular_tv_shows": "Popular TV Shows"
+  },
+  "sidebar": {
+    "movies_and_series": "Movies and Series",
+    "home": "Home",
+    "movies": "Movies",
+    "tv_shows": "TV Shows",
+    "random_movie": "Random Movie",
+    "best_movies": "Best Movies",
+    "feedback": "Feedback",
+    "hello": "Hello",
+    "guest": "Guest",
+    "my_profile": "My Profile",
+    "switch_to_english": "Switch to English",
+    "switch_to_russian": "Switch to Russian",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "searchMovie": {
+    "search_movies_by_title": "Search Movies by Title",
+    "movie_title": "Movie Title",
+    "search": "Search",
+    "reset_search": "Reset Search"
+  },
+  "randomMovie": {
+    "loading": "Loading...",
+    "error": "Error",
+    "no_data": "No data available",
+    "release_date": "Release Date",
+    "show_another_random_movie": "Show another random movie"
+  },
+  "movies": {
+    "loading": "Loading...",
+    "error": "Error",
+    "no_data": "No data available",
+    "release_date": "Release Date",
+    "show_another_random_movie": "Show another random movie",
+    "popular_movies": "Popular Movies"
+  },
+  "movieItem": {
+    "rating": "Rating",
+    "reviewCount": "Review count",
+    "releaseDate": "Release date"
+  },
+  "movieContainer": {
+    "no_data": "No data available"
+  },
+  "bestMovies": {
+    "loading": "Loading...",
+    "error": "Error",
+    "noData": "No data available",
+    "rating": "Rating",
+    "reviewCount": "Review count",
+    "releaseDate": "Release date"
+  },
+  "feedbackForm": {
+    "title": "Leave your rating for the movie or series",
+    "thankYou": "Thank you for your feedback",
+    "name": "Your name",
+    "rating": "Your rating",
+    "comment": "Your review",
+    "submit": "Submit",
+    "errors": {
+      "name": "The 'Your name' field is required",
+      "rating": "The 'Your rating' field is required",
+      "comment": "The 'Your review' field is required"
+    },
+    "ratingOptions": {
+      "": "Select a rating",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5"
+    }
+  },
+  "main": {
+    "title": "Movie and Series Search Service",
+    "description": "With this service, you can quickly find suitable movies and series.",
+    "explore": "Explore our catalog of movies and series to find something interesting for yourself.",
+    "button": "Go to Movies Section"
+  },
+  "loginForm": {
+    "title": "Login Form",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "submitButton": "Login"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "message": "Sorry, but the page you are looking for does not exist.",
+    "redirect": "You will be redirected to the homepage in 5 seconds."
+  },
+  "authLayout": {
+    "footerText": "Movie and TV Show Search Service"
+  },
+  "mainLayout": {
+    "footerText": "Movie and TV Show Search Service"
+  }
+}
