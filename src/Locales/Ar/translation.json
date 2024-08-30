@@ -1,0 +1,112 @@
+{
+  "tvShows": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "popular_tv_shows": "برامج تلفزيونية شهيرة"
+  },
+  "sidebar": {
+    "movies_and_series": "أفلام ومسلسلات",
+    "home": "الرئيسية",
+    "movies": "أفلام",
+    "tv_shows": "مسلسلات",
+    "random_movie": "فيلم عشوائي",
+    "best_movies": "أفضل الأفلام",
+    "feedback": "ردود الفعل",
+    "hello": "مرحبًا",
+    "guest": "ضيف",
+    "my_profile": "ملفي الشخصي",
+    "switch_to_english": "التبديل إلى الإنجليزية",
+    "switch_to_russian": "التبديل إلى الروسية",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول"
+  },
+  "searchMovie": {
+    "search_movies_by_title": "بحث عن الأفلام حسب العنوان",
+    "movie_title": "عنوان الفيلم",
+    "search": "بحث",
+    "reset_search": "إعادة تعيين البحث"
+  },
+  "randomMovie": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "no_data": "لا توجد بيانات متاحة",
+    "release_date": "تاريخ الإصدار",
+    "show_another_random_movie": "عرض فيلم عشوائي آخر"
+  },
+  "movies": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "no_data": "لا توجد بيانات متاحة",
+    "release_date": "تاريخ الإصدار",
+    "show_another_random_movie": "عرض فيلم عشوائي آخر",
+    "popular_movies": "الأفلام الشعبية"
+  },
+  "movieItem": {
+    "rating": "التقييم",
+    "reviewCount": "عدد التقييمات",
+    "releaseDate": "تاريخ الإصدار"
+  },
+  "movieContainer": {
+    "no_data": "لا توجد بيانات للعرض"
+  },
+  "bestMovies": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "noData": "لا توجد بيانات للعرض",
+    "rating": "تقييم",
+    "reviewCount": "عدد المراجعات",
+    "releaseDate": "تاريخ الإصدار"
+  },
+  "feedbackForm": {
+    "title": "اترك تقييمك للفيلم أو المسلسل",
+    "thankYou": "شكرا لملاحظاتك",
+    "name": "اسمك",
+    "rating": "تقييمك",
+    "comment": "مراجعتك",
+    "submit": "إرسال",
+    "errors": {
+      "name": "حقل \"اسمك\" مطلوب",
+      "rating": "حقل \"تقييمك\" مطلوب",
+      "comment": "حقل \"مراجعتك\" مطلوب"
+    },
+    "ratingOptions": {
+      "": "اختر تقييمًا",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5"
+    }
+  },
+  "main": {
+    "title": "خدمة البحث عن الأفلام والمسلسلات",
+    "description": "باستخدام هذه الخدمة، يمكنك العثور بسرعة على الأفلام والمسلسلات المناسبة.",
+    "explore": "استكشف كتالوج الأفلام والمسلسلات لدينا لتجد شيئًا ممتعًا لنفسك.",
+    "button": "اذهب إلى قسم الأفلام"
+  },
+  "loginForm": {
+    "title": "نموذج تسجيل الدخول",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "passwordPlaceholder": "كلمة المرور",
+    "submitButton": "تسجيل الدخول"
+  },
+  "registerForm": {
+    "register": "تسجيل",
+    "namePlaceholder": "الاسم",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "passwordPlaceholder": "كلمة السر",
+    "registerButton": "تسجيل"
+  },
+  "notFound": {
+    "title": "404 - الصفحة غير موجودة",
+    "message": "عذرًا، ولكن الصفحة التي تبحث عنها غير موجودة.",
+    "redirect": "سيتم إعادة توجيهك إلى الصفحة الرئيسية خلال 5 ثوانٍ."
+  },
+  "authLayout": {
+    "footerText": "خدمة البحث عن الأفلام والمسلسلات"
+  },
+  "mainLayout": {
+    "footerText": "خدمة البحث عن الأفلام والمسلسلات"
+  }
+}

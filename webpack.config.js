@@ -2,7 +2,7 @@ const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const Dotenv = require("dotenv-webpack")
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const isProduction = process.env.NODE_ENV === "production"
 const styleLoaderHandler = isProduction
   ? MiniCssExtractPlugin.loader
@@ -15,6 +15,7 @@ module.exports = {
     filename: "[name][contenthash].js",
     clean: true,
     assetModuleFilename: "assets/[name][hash][ext]",
+    publicPath: "/",
   },
   devtool: isProduction ? "source-map" : "eval-source-map",
   devServer: {
@@ -87,5 +88,6 @@ module.exports = {
       path: "./.env",
       safe: true,
     }),
+    new NodePolyfillPlugin(),
   ],
 }

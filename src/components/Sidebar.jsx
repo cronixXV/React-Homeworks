@@ -4,7 +4,9 @@ import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import { Link } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
-import { useLanguage } from "../Helpers/LanguageContext.jsx"
+import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
+// import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
 const Divider = styled.hr`
@@ -13,8 +15,11 @@ const Divider = styled.hr`
 `
 
 export default function Sidebar() {
+  const { isAuthenticated, user } = useSelector((state) => state.auth)
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
-  const { language, toggleLanguage } = useLanguage()
+  // const { language, toggleLanguage } = useLanguage()
+  const { t } = useTranslation()
+
   return (
     <Navbar
       className="flex-column flex-shrink-0 p-3"
@@ -30,7 +35,7 @@ export default function Sidebar() {
         to="/"
         className="me-auto"
       >
-        <span className="fs-5">Фильмы и сериалы</span>
+        <span className="fs-5">{t("sidebar.movies_and_series")}</span>
       </Navbar.Brand>
 
       <Divider />
@@ -49,7 +54,7 @@ export default function Sidebar() {
             to="/"
             eventKey="/"
           >
-            Главная
+            {t("sidebar.home")}
           </Nav.Link>
         </Nav.Item>
 
@@ -60,7 +65,7 @@ export default function Sidebar() {
             eventKey="/movies"
             className="text-light px-3"
           >
-            Фильмы
+            {t("sidebar.movies")}
           </Nav.Link>
         </Nav.Item>
 
@@ -69,9 +74,9 @@ export default function Sidebar() {
             as={Link}
             to="/tv-shows"
             eventKey="/tv-shows"
-            className="text-light  px-3"
+            className="text-light px-3"
           >
-            Сериалы
+            {t("sidebar.tv_shows")}
           </Nav.Link>
         </Nav.Item>
 
@@ -80,9 +85,9 @@ export default function Sidebar() {
             as={Link}
             to="/random-movie"
             eventKey="/random-movie"
-            className="text-light  px-3"
+            className="text-light px-3"
           >
-            Случайный фильм
+            {t("sidebar.random_movie")}
           </Nav.Link>
         </Nav.Item>
 
@@ -93,7 +98,7 @@ export default function Sidebar() {
             eventKey="/best-movies"
             className="text-light px-3"
           >
-            Лучшие фильмы
+            {t("sidebar.best_movies")}
           </Nav.Link>
         </Nav.Item>
 
@@ -104,14 +109,29 @@ export default function Sidebar() {
             eventKey="/feedback"
             className="text-light px-3"
           >
-            Обратная связь
+            {t("sidebar.feedback")}
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link
+            as={Link}
+            to="/login"
+            eventKey="/auth/login"
+            className="text-light px-3"
+          >
+            {t("registerForm.register")}
           </Nav.Link>
         </Nav.Item>
       </Nav>
       <Divider />
 
       <NavDropdown
-        title={<strong>Гость</strong>}
+        title={
+          <strong>
+            {isAuthenticated ? `${t("hello")}, ${user?.name} !` : t("guest")}
+          </strong>
+        }
         className="text-light"
         drop="up"
         menuVariant="dark"
@@ -119,34 +139,54 @@ export default function Sidebar() {
           width: "100%",
         }}
       >
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Мой профиль
-        </NavDropdown.Item>
-
-        <NavDropdown.Item
-          as={Link}
-          to="#"
-          onClick={toggleLanguage}
-          className="text-light px-3"
-        >
-          {language === "ru" ? "Switch на English" : "Переключить на русский"}
-        </NavDropdown.Item>
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Настройки
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item
-          as={Link}
-          to="/#"
-        >
-          Выход
-        </NavDropdown.Item>
+        {isAuthenticated ? (
+          <>
+            <NavDropdown.Item
+              as={Link}
+              to="/profile"
+            >
+              {t("sidebar.my_profile")}
+            </NavDropdown.Item>
+            {/* <NavDropdown.Item
+              as={Link}
+              to="#"
+              onClick={toggleLanguage}
+              className="text-light px-3"
+            >
+              {language === "ru"
+                ? t("sidebar.switch_to_english")
+                : t("sidebar.switch_to_russian")}
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="/settings"
+            >
+              {t("sidebar.settings")}
+            </NavDropdown.Item> */}
+            <NavDropdown.Divider />
+            <NavDropdown.Item
+              as={Link}
+              to="/auth/logout"
+            >
+              {t("sidebar.logout")}
+            </NavDropdown.Item>
+          </>
+        ) : (
+          <>
+            <NavDropdown.Item
+              as={Link}
+              to="/auth"
+            >
+              {t("sidebar.login")}
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="/settings"
+            >
+              {t("sidebar.settings")}
+            </NavDropdown.Item>
+          </>
+        )}
       </NavDropdown>
     </Navbar>
   )

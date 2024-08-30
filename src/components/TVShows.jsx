@@ -1,12 +1,12 @@
 import React from "react"
 import { useFetchTVShows } from "./Hooks/useFetchTVShows.js"
 import MovieContainer from "./MovieContainer.jsx"
-import { useLanguage } from "../Helpers/LanguageContext.jsx"
+import { useTranslation } from "react-i18next"
 import { Container, Spinner, Alert } from "react-bootstrap"
 
 const TVShows = () => {
-  const { language } = useLanguage()
-  const { tvShowsList, status, error } = useFetchTVShows(language)
+  const { t } = useTranslation() // Подключаем useTranslation для использования переводов
+  const { tvShowsList, status, error } = useFetchTVShows()
 
   if (status === "loading") {
     return (
@@ -15,7 +15,7 @@ const TVShows = () => {
           animation="border"
           role="status"
         >
-          <span className="visually-hidden">Загрузка...</span>
+          <span className="visually-hidden">{t("tvShows.loading")}</span>{" "}
         </Spinner>
       </Container>
     )
@@ -24,7 +24,9 @@ const TVShows = () => {
   if (status === "failed") {
     return (
       <Container className="py-5">
-        <Alert variant="danger">Ошибка: {error}</Alert>
+        <Alert variant="danger">
+          {t("tvShows.error")}: {error}
+        </Alert>{" "}
       </Container>
     )
   }
@@ -35,7 +37,7 @@ const TVShows = () => {
         className="mb-4"
         style={{ fontSize: "24px" }}
       >
-        Популярные сериалы
+        {t("tvShows.popular_tv_shows")}
       </h1>
       <MovieContainer movies={tvShowsList} />
     </Container>

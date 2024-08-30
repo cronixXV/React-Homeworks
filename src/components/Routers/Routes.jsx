@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout.jsx"
+import AuthLayout from "../Layouts/AuthLayout.jsx"
 import HomePage from "../Pages/HomePage.jsx"
 import MoviesPage from "../Pages/MoviesPage.jsx"
 import TVShowsPage from "../Pages/TVShowsPage.jsx"
@@ -8,6 +9,10 @@ import BestMoviesPage from "../BestMovies.jsx"
 import NotFoundPage from "../Pages/NotFoundPage.jsx"
 import FeedbackForm from "../Pages/FeedbackForm.jsx"
 import ErrorBoundary from "../ErrorBoundary.jsx"
+import LoginForm from "../Pages/LoginForm.jsx"
+import Logout from "../Logout.jsx"
+import PrivateRoute from "../PrivateRoute.jsx"
+import RegisterForm from "../Pages/RegisterForm.jsx"
 
 const createRouter = () =>
   createBrowserRouter([
@@ -19,13 +24,19 @@ const createRouter = () =>
           index: true,
           element: (
             <ErrorBoundary>
-              <HomePage />
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
             </ErrorBoundary>
           ),
         },
         {
           path: "movies",
-          element: <MoviesPage />,
+          element: (
+            <PrivateRoute>
+              <MoviesPage />
+            </PrivateRoute>
+          ),
         },
         {
           path: "tv-shows",
@@ -42,6 +53,50 @@ const createRouter = () =>
         {
           path: "feedback",
           element: <FeedbackForm />,
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />,
+        },
+      ],
+    },
+    {
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ErrorBoundary>
+              <LoginForm />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          path: "logout",
+          element: <Logout />,
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />,
+        },
+      ],
+    },
+    {
+      path: "/register",
+      element: <AuthLayout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ErrorBoundary>
+              <RegisterForm />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          path: "logout",
+          element: <Logout />,
         },
         {
           path: "*",

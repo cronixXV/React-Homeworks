@@ -1,10 +1,13 @@
 import React from "react"
 import MovieItem from "./MovieItem.jsx"
 import { Container, Row, Col } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
 
 export default function MovieContainer({ movies }) {
+  const { t } = useTranslation()
+
   if (!movies || movies.length === 0) {
-    return <div>Нет данных для отображения</div>
+    return <div>{t("movieContainer.no_data")}</div>
   }
 
   return (
