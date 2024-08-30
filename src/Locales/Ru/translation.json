@@ -91,6 +91,13 @@
     "passwordPlaceholder": "Пароль",
     "submitButton": "Войти"
   },
+  "registerForm": {
+    "register": "Регистрация",
+    "namePlaceholder": "Имя",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Пароль",
+    "registerButton": "Зарегистрироваться"
+  },
   "notFound": {
     "title": "404 - Страница не найдена",
     "message": "Извините, но страница, которую вы ищете, не существует.",

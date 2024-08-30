@@ -91,6 +91,13 @@
     "passwordPlaceholder": "كلمة المرور",
     "submitButton": "تسجيل الدخول"
   },
+  "registerForm": {
+    "register": "تسجيل",
+    "namePlaceholder": "الاسم",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "passwordPlaceholder": "كلمة السر",
+    "registerButton": "تسجيل"
+  },
   "notFound": {
     "title": "404 - الصفحة غير موجودة",
     "message": "عذرًا، ولكن الصفحة التي تبحث عنها غير موجودة.",

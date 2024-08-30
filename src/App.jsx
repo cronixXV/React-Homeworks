@@ -1,14 +1,11 @@
+// App.jsx
 import React from "react"
-import { RouterProvider } from "react-router-dom"
-import createRouter from "./components/Routers/Routes.jsx"
-import { LanguageProvider } from "./Helpers/LanguageContext.jsx"
+import { Outlet } from "react-router-dom"
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <RouterProvider router={createRouter()}>
-        <App />
-      </RouterProvider>
-    </LanguageProvider>
+    <div>
+      <Outlet />
+    </div>
   )
 }

@@ -112,6 +112,17 @@ export default function Sidebar() {
             {t("sidebar.feedback")}
           </Nav.Link>
         </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link
+            as={Link}
+            to="/login"
+            eventKey="/auth/login"
+            className="text-light px-3"
+          >
+            {t("registerForm.register")}
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
       <Divider />
 
@@ -164,20 +175,10 @@ export default function Sidebar() {
           <>
             <NavDropdown.Item
               as={Link}
-              to="/login"
+              to="/auth"
             >
               {t("sidebar.login")}
             </NavDropdown.Item>
-            {/* <NavDropdown.Item
-              as={Link}
-              to="#"
-              onClick={toggleLanguage}
-              className="text-light px-3"
-            >
-              {language === "ru"
-                ? t("sidebar.switch_to_english")
-                : t("sidebar.switch_to_russian")}
-            </NavDropdown.Item> */}
             <NavDropdown.Item
               as={Link}
               to="/settings"

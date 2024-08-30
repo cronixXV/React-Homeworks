@@ -6,6 +6,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      // Используем базовый URL
       const response = await fetch(
         `${process.env.REACT_APP_BASE_URL}/users?email=${email}`
       )
@@ -27,22 +28,18 @@ export const login = createAsyncThunk(
         return rejectWithValue("Неверный email и/или пароль")
       }
 
+      const token = user.token || "mockTokenForExample" // Пример использования статического токена
+
       return {
         isAuthenticated: true,
         user: { email: user.email, name: user.name },
-        token: user.token,
+        token,
       }
     } catch (error) {
       return rejectWithValue(error.message || "Ошибка при выполнении запроса")
     }
   }
 )
-
-// Async thunk для выхода
-export const logout = createAsyncThunk("auth/logout", async () => {
-  localStorage.removeItem("isAuthenticated")
-  localStorage.removeItem("token")
-})
 
 // Async thunk для регистрации
 export const register = createAsyncThunk(
@@ -91,8 +88,14 @@ export const register = createAsyncThunk(
 
       const savedUser = await saveResponse.json()
 
-      // Возвращаем email и имя нового пользователя
-      return { email: savedUser.email, name: savedUser.name }
+      // Возвращаем email и имя нового пользователя, а также мокаем token
+      const token = "mockTokenForExample" // Пример использования статического токена
+
+      return {
+        email: savedUser.email,
+        name: savedUser.name,
+        token,
+      }
     } catch (error) {
       return rejectWithValue(error.message || "Ошибка при выполнении запроса")
     }
@@ -108,7 +111,17 @@ const authSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.isAuthenticated = false
+      state.user = null
+      state.token = null
+      state.status = "idle"
+      localStorage.removeItem("isAuthenticated")
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -122,18 +135,11 @@ const authSlice = createSlice({
         state.token = action.payload.token
         localStorage.setItem("isAuthenticated", true)
         localStorage.setItem("token", action.payload.token)
+        localStorage.setItem("user", JSON.stringify(action.payload.user))
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed"
         state.error = action.payload
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.isAuthenticated = false
-        state.user = null
-        state.token = null
-        state.status = "idle"
-        localStorage.removeItem("isAuthenticated")
-        localStorage.removeItem("token")
       })
       .addCase(register.pending, (state) => {
         state.status = "loading"
@@ -141,9 +147,12 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.status = "succeeded"
-        state.isAuthenticated = true // Можно считать, что после успешной регистрации пользователь аутентифицирован
-        state.user = action.payload
-        // Здесь можно добавить сохранение токена в localStorage, если он используется
+        state.isAuthenticated = true
+        state.user = { email: action.payload.email, name: action.payload.name }
+        state.token = action.payload.token
+        localStorage.setItem("isAuthenticated", true)
+        localStorage.setItem("token", action.payload.token)
+        localStorage.setItem("user", JSON.stringify(state.user))
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "failed"
@@ -151,5 +160,8 @@ const authSlice = createSlice({
       })
   },
 })
+
+// Экспортируем действие logout, чтобы его можно было использовать в компонентах
+export const { logout } = authSlice.actions
 
 export default authSlice.reducer

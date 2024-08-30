@@ -1,6 +1,7 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import Container from "react-bootstrap/Container"
 
 export default function AuthLayout() {
   const { t } = useTranslation()
@@ -12,12 +13,12 @@ export default function AuthLayout() {
         backgroundColor: "#f5f5f5",
       }}
     >
-      <div>
+      <Container className="d-flex flex-column justify-content-center align-items-center">
         <Outlet />
         <p className="mt-5 text-secondary">
-          @ {new Date().getFullYear()} {t("authLayout.footerText")}
+          © {new Date().getFullYear()} {t("authLayout.footerText")}
         </p>
-      </div>
+      </Container>
     </main>
   )
 }

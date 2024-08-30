@@ -7,6 +7,18 @@
       "password": "$2a$10$IJG1S44Ls2nqEjSeFeuld.u8g8WFeh10CsASTfM1PiqyS89BYDyQ2",
       "token": "skalfjakhfjsja1224112",
       "id": "5a16"
+    },
+    {
+      "id": "bcc0",
+      "email": "egor@1.ru",
+      "password": "$2a$10$BWiRgOBrSN2vAgPRpANxIuyrE/n09lZhfaoWE6T3qBOw4hPVkenti",
+      "name": "Егор"
+    },
+    {
+      "id": "cdbe",
+      "email": "test2@gmail.com",
+      "password": "$2a$10$MkFu/QJfMECqWm5yz7sZ.uwBmd8bgUPyRW9sEWfx/03mS3xp.f8uS",
+      "name": "crnx"
     }
   ]
 }

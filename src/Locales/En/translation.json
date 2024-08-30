@@ -91,6 +91,13 @@
     "passwordPlaceholder": "Password",
     "submitButton": "Login"
   },
+  "registerForm": {
+    "register": "Register",
+    "namePlaceholder": "Name",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "registerButton": "Register"
+  },
   "notFound": {
     "title": "404 - Page Not Found",
     "message": "Sorry, but the page you are looking for does not exist.",

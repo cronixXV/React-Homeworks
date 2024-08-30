@@ -15,6 +15,7 @@ module.exports = {
     filename: "[name][contenthash].js",
     clean: true,
     assetModuleFilename: "assets/[name][hash][ext]",
+    publicPath: "/",
   },
   devtool: isProduction ? "source-map" : "eval-source-map",
   devServer: {

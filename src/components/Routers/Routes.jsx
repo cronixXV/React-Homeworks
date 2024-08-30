@@ -9,7 +9,7 @@ import BestMoviesPage from "../BestMovies.jsx"
 import NotFoundPage from "../Pages/NotFoundPage.jsx"
 import FeedbackForm from "../Pages/FeedbackForm.jsx"
 import ErrorBoundary from "../ErrorBoundary.jsx"
-import LoginForm from "../Pages/Loginform.jsx"
+import LoginForm from "../Pages/LoginForm.jsx"
 import Logout from "../Logout.jsx"
 import PrivateRoute from "../PrivateRoute.jsx"
 import RegisterForm from "../Pages/RegisterForm.jsx"
@@ -73,7 +73,21 @@ const createRouter = () =>
           ),
         },
         {
-          path: "register", // Добавляем путь для регистрации
+          path: "logout",
+          element: <Logout />,
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />,
+        },
+      ],
+    },
+    {
+      path: "/register",
+      element: <AuthLayout />,
+      children: [
+        {
+          index: true,
           element: (
             <ErrorBoundary>
               <RegisterForm />
