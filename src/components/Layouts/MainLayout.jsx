@@ -44,7 +44,7 @@ export default function MainLayout() {
           <Row>
             <Col>
               <p className="text-center">
-                &copy; 2024 Сервис фильмов и сериалов
+                &copy; 2024 Сервис поиска фильмов и сериалов
               </p>
             </Col>
           </Row>

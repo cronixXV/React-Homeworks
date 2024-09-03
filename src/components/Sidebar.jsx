@@ -6,7 +6,6 @@ import { Link } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
 import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
-// import { useLanguage } from "../Helpers/LanguageContext.jsx"
 import styled from "styled-components"
 
 const Divider = styled.hr`
@@ -17,7 +16,6 @@ const Divider = styled.hr`
 export default function Sidebar() {
   const { isAuthenticated, user } = useSelector((state) => state.auth)
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
-  // const { language, toggleLanguage } = useLanguage()
   const { t } = useTranslation()
 
   return (
@@ -116,7 +114,7 @@ export default function Sidebar() {
         <Nav.Item>
           <Nav.Link
             as={Link}
-            to="/login"
+            to="/register"
             eventKey="/auth/login"
             className="text-light px-3"
           >
@@ -147,22 +145,6 @@ export default function Sidebar() {
             >
               {t("sidebar.my_profile")}
             </NavDropdown.Item>
-            {/* <NavDropdown.Item
-              as={Link}
-              to="#"
-              onClick={toggleLanguage}
-              className="text-light px-3"
-            >
-              {language === "ru"
-                ? t("sidebar.switch_to_english")
-                : t("sidebar.switch_to_russian")}
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              as={Link}
-              to="/settings"
-            >
-              {t("sidebar.settings")}
-            </NavDropdown.Item> */}
             <NavDropdown.Divider />
             <NavDropdown.Item
               as={Link}

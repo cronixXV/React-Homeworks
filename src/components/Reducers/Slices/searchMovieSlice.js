@@ -7,7 +7,6 @@ export const fetchSearchMovie = createAsyncThunk(
   "searchMovie/fetchSearchMovie",
   async (query) => {
     const LANGUAGE_CODE = "ru"
-    // const LANGUAGE_CODE = "ar" //на будущее
     const response = await fetch(
       `${REACT_APP_SEARCH_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=${LANGUAGE_CODE}`
     )

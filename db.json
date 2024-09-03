@@ -19,6 +19,12 @@
       "email": "test2@gmail.com",
       "password": "$2a$10$MkFu/QJfMECqWm5yz7sZ.uwBmd8bgUPyRW9sEWfx/03mS3xp.f8uS",
       "name": "crnx"
+    },
+    {
+      "id": "723b",
+      "email": "aaa@mail.ru",
+      "password": "$2a$10$DNJIv7Fd668dfDoj5iOgHefTQh4ofQNy/spN/vSkCLGM0WyufwX1S",
+      "name": "aaa"
     }
   ]
 }

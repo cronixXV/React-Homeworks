@@ -9,7 +9,7 @@ export default function Logout() {
 
   useEffect(() => {
     const handleLogout = async () => {
-      await dispatch(logout())
+      dispatch(logout())
       navigate("/auth")
     }
 

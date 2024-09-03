@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap"
 import moment from "moment"
 import { useTranslation } from "react-i18next"
 
-export default function MovieItem({ movie }) {
+const MovieItem = React.memo(({ movie }) => {
   const { t } = useTranslation()
 
   return (
@@ -30,4 +30,6 @@ export default function MovieItem({ movie }) {
       </Card.Body>
     </Card>
   )
-}
+})
+
+export default MovieItem
